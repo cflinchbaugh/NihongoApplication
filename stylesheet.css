@@ -1,0 +1,65 @@
+#contentWrapper{
+	padding: 15px;
+}
+#renderHere{}
+
+#mode{
+	text-align: center;
+}
+#displayMode{
+	text-align: center;
+}
+
+#modeBtns{
+	text-align: center;
+}
+#Numbers{}
+#Hiragana{}
+#Katakana{}
+#Phrases{}
+
+#secondaryMode{  
+	text-align: center;
+  	padding-top: 12px;}
+
+#secondaryModeBtns{
+	text-align: center;
+}
+
+#Image{}
+#Romanji{}
+
+#romanjiNavigation{
+	text-align: center;
+	padding-top: 15px;
+}
+#nextButton{}
+#transButton{}
+#bodyContent{
+	text-align: center;
+	padding: 10px;
+  	font-weight: bold;
+}
+			
+#imageContent{  
+	text-align: center;
+	padding-top: 10px;
+}
+			
+
+
+.mode{}
+.secondaryMode{}
+.inner{}
+.invisible {
+	opacity: 0;
+}
+
+.visible {
+	opacity:1;
+	
+	-webkit-transition: opacity 0.25s;
+	-moz-transition: opacity 0.25s;
+	-o-transition: opacity 0.25s;
+	-transition: opacity 0.25s;
+}

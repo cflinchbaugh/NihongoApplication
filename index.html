@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>Backbone</title>
+	<script src="jquery-1.11.3.min.js"></script>
+	<script src="underscore-min.js"></script>
+	<script src="backbone-min.js"></script>
+    <link rel='stylesheet' type='text/css' href='stylesheet.css'/>
+	
+</head>
+
+<body id = "contentWrapper">
+	<!-- Templates will be loaded into the renderHere div -->
+	<div id="renderHere">
+	</div>
+
+
+	<!-- TEMPLATES -->	
+	<!-- 1: Mode Menu -->
+	<script type="text/template" id="modeTemplate">
+		<div>
+		 	<div id = "displayMode">
+		 		Mode:<%= mode %>
+		 	</div>
+	
+			<div id = "modeBtns">
+				<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
+				<button type = 'button' class = 'mode' id = 'Hiragana'>Hiragana</button>
+				<button type = 'button' class = 'mode' id = 'Katakana'>Katakana</button>
+				<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
+			</div>
+
+			<div id = "secondaryMode">
+		 		Mode:<%= secondaryMode %>
+		 	</div>
+			<div id = "secondaryModeBtns">
+				<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+				<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+			</div>
+	
+		 	<div id="navigationWrapper">
+		 		<%= navWrapperContent %>
+		 	</div>
+	
+		</div>
+	</script> 
+
+	<!-- 2: Navigation Menu -->
+	<script type="text/template" id="navigationTemplate">
+		<div id = 'romanjiNavigation'>
+			<button type='button' id='nextButton'>Next</button>
+			<button type = 'button' id='transButton'>Translation</button>
+		</div>
+
+		<div id = "displayCardContent">
+			<%= displayCardContent %>
+		</div>
+	</script>
+
+	<!-- 3: Display Card Menu -->
+	<script type="text/template" id="displayCardTemplate">
+		<div id = "imageContent" >
+			<img src="<%= imageContent %>">
+		</div>
+
+		<div id = "bodyContent" class="invisible">
+			<%= bodyContent %>
+		</div>
+	</script>
+	<script src="CardModel.js"></script>
+	<script src="View.js"></script>
+</body>
+</html>
