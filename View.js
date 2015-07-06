@@ -7,61 +7,78 @@ View = Backbone.View.extend({
 	currentColLen: numbers.length,
 	
 	initialize: function(){
-		this.render();
-		// this.reRenderDispCard();
+		this.initialRender();
 	},
 
-	//Initial rendering
-	render: function(){
+	//Initial rendering, later called to re-render the Mode select template
+	initialRender: function(){
 		this.currentCollection.shuffleCollection();
+
+	//Template0: WrapperTemplate
+		// get the html from the script template
+		var wrapperHTML = document.getElementById('wrapperTemplate').innerHTML,
+		// compile the first template
+			compiledWrapper = _.template(wrapperHTML),
 	//Template1: ModeTemplate
+		// get the html from the script template
+			modeHTML = document.getElementById('modeTemplate').innerHTML,
+		// compile the first template
+			compiledMode = _.template(modeHTML),
+		
+		//Get current content to pass into the template
+			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
+			RenderImage = this.currentCollection.at(this.i).get("image"),
+
+		// build the html from the template
+			compiledModeHTML = compiledMode({mode: 'Numbers', secondaryMode: 'Image'});
+			compiledWrapperHTML = compiledWrapper({otherTemplates: compiledModeHTML});
+
+		// Jam the inner(Mode) into the outer(Wrapper)
+			$(compiledWrapperHTML).find('#otherTemplates').html(compiledModeHTML);
+		
+		// Jam it all into the element
+			this.$el.html(compiledWrapperHTML);
+	},
+
+	renderMode : function(i){
 		// get the html from the script template
 		var modeHTML = document.getElementById('modeTemplate').innerHTML,
 		// compile the first template
 			compiledMode = _.template(modeHTML),
 		
-	//Template2: Navigation Template
-		// get the html from the script template
-			navHTML = document.getElementById('navigationTemplate').innerHTML,
-		// compile the second/inner template
-			compiledNav = _.template(navHTML),
-
-	//Template3: Card Template
-		// get the html from the script template
-			displayCardHTML = document.getElementById('displayCardTemplate').innerHTML,
-		// compile the third/inner template
-			compiledDispCard = _.template(displayCardHTML),
-		
-
 		//Get current content to pass into the template
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
 			RenderImage = this.currentCollection.at(this.i).get("image"),
 
-		// build the html from the second template
-			compiledDispCardHTML = compiledDispCard({bodyContent: RenderRomanji, imageContent: RenderImage}),
-
-		// build the html from the second template
-			compiledNavHTML = compiledNav({displayCardContent:compiledDispCardHTML}),
-		
 		// build the html from the template
-			compiledModeHTML = compiledMode({mode: 'Numbers', secondaryMode: 'Image', navWrapperContent:compiledNavHTML});
-		// Jam the second(Nav) into the first(mode)
-			$(compiledModeHTML).find('#navigationWrapper').html(compiledNavHTML);
-	
+			compiledModeHTML = compiledMode({mode: this.mode, secondaryMode: 'Image'});
+		
 		// Jam it all into the element
-			this.$el.html(compiledModeHTML);
-
-
-		// Load the logic (declared above)
-		//boundLogic();
+			//this.$el.html(compiledsecModeHTML);
+			$('#nestedContent').html(compiledModeHTML);
 
 	},
 
-	//TODO Rerender just the inner template
-	//This will be called on 'next' button click
-	//Potentially split this into two?  One for the romanji, one for the image
-	//Currently re-renders the entire thing; which defeats the purpose- but at least it works.
-	reRenderDispCard : function(i){
+	renderSecMode : function(i){
+		// get the html from the script template
+		var secModeHTML = document.getElementById('secondaryModeTemplate').innerHTML,
+		// compile the first template
+			compiledSecMode = _.template(secModeHTML),
+		
+		//Get current content to pass into the template
+			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
+			RenderImage = this.currentCollection.at(this.i).get("image"),
+
+		// build the html from the template
+			compiledsecModeHTML = compiledSecMode({mode: this.mode, secondaryMode: 'Image'});
+		
+		// Jam it all into the element
+			//this.$el.html(compiledsecModeHTML);
+			$('#nestedContent').html(compiledsecModeHTML);
+
+	},
+
+	renderCard : function(i){
 		// get the html from the script template
 			displayCardHTML = document.getElementById('displayCardTemplate').innerHTML,
 		// compile the third/inner template
@@ -70,34 +87,21 @@ View = Backbone.View.extend({
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
 			RenderImage = this.currentCollection.at(this.i).get("image");
 		// build the html from the second template
-			compiledDispCardHTML = compiledDispCard({bodyContent: RenderRomanji, imageContent: RenderImage});
+			compiledDispCardHTML = compiledDispCard({mode: this.mode, secondaryMode: this.secondaryMode, bodyContent: RenderRomanji, imageContent: RenderImage});
 	
 		// Jam it all into the element
 			//this.$el.html(compiledDispCardHTML);
-			$('#displayCardContent').html(compiledDispCardHTML);
-	},
-
-	reRenderNavigation : function(i){
-		// get the html from the script template
-			displayCardHTML = document.getElementById('displayCardTemplate').innerHTML,
-		// compile the third/inner template
-			compiledDispCard = _.template(displayCardHTML),
-		//Get current content to pass into the template
-			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
-			RenderImage = this.currentCollection.at(this.i).get("image");
-		// build the html from the second template
-			compiledDispCardHTML = compiledDispCard({bodyContent: RenderRomanji, imageContent: RenderImage});
-	
-		// Jam it all into the element
-			this.$el.html(compiledDispCardHTML);
-			//$('#displayCardContent').html(compiledDispCardHTML);
+			$('#nestedContent').html(compiledDispCardHTML);
 	},
 
 	//Bind events
 	events: {"click .mode": "updateMode",
 			"click .secondaryMode": "updateSecondaryMode",
 			"click #nextButton": "nextCard",
-			"click #transButton": "translate"
+			"click #transButton": "translate",
+			"click #aboutBtn": "renderAbout",
+			"click #secModeBackBtn": "renderMode",
+			"click #cardBackBtn": "renderSecMode",
 	},
 
 	//Update mode, re-render
@@ -127,7 +131,8 @@ View = Backbone.View.extend({
 		this.i = -1;
 		
 		//Render content
-		this.reRenderDispCard(this.i);
+		//this.reRenderDispCard(this.i);
+		this.renderSecMode();
 	},
 
 	//Secondary Mode
@@ -143,7 +148,8 @@ View = Backbone.View.extend({
 		i = 0;
 		
 		//Render content
-		this.reRenderDispCard(this.i);
+		this.renderCard(this.i);
+
 
 		//If Romanji, display text and hide image
 		if (this.secondaryMode === "Romanji"){
@@ -163,7 +169,7 @@ View = Backbone.View.extend({
 		}
 
 		//Render next card (must come before applying classes)
-		this.reRenderDispCard(this.i);
+		this.renderCard(this.i);
 
 		//If Image, display image and hide text (until Translate is pressed)
 		if (this.secondaryMode === "Image"){
@@ -186,7 +192,6 @@ View = Backbone.View.extend({
 
 	//Display translation 
 	translate : function(e){
-		console.log(this.secondaryMode);
 		if (this.secondaryMode === "Image"){
 			//remove invisible class from text
 			$('#bodyContent').removeClass('invisible');
@@ -199,6 +204,11 @@ View = Backbone.View.extend({
 			$('#imageContent').addClass('visible');
 		}
 		//No need to re-render		
+	},
+
+	renderAbout : function(e){
+		$('#aboutContent').toggleClass('invisible');
+		$('#aboutContent').toggleClass('visible');
 	}
 
 

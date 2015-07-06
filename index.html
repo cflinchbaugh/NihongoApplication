@@ -9,55 +9,79 @@
 </head>
 
 <body id = "contentWrapper">
-	<!-- Templates will be loaded into the renderHere div -->
+	
 	<div id="renderHere">
+		<!-- Templates will be loaded into the renderHere div -->
 	</div>
 
 
-	<!-- TEMPLATES -->	
-	<!-- 1: Mode Menu -->
-	<script type="text/template" id="modeTemplate">
-		<div>
-		 	<div id = "displayMode">
-		 		Mode:<%= mode %>
-		 	</div>
+
+<!-- TEMPLATES -->	
 	
-			<div id = "modeBtns">
-				<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
-				<button type = 'button' class = 'mode' id = 'Hiragana'>Hiragana</button>
-				<button type = 'button' class = 'mode' id = 'Katakana'>Katakana</button>
-				<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
+	<!-- 0: Wrapper / About Menu -->
+	<script type="text/template" id="wrapperTemplate">
+		<div>
+			<div id = "nestedContent">
+				<%= otherTemplates %>
 			</div>
 
-			<div id = "secondaryMode">
-		 		Mode:<%= secondaryMode %>
-		 	</div>
-			<div id = "secondaryModeBtns">
-				<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
-				<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+			<div id="aboutContent" class = "invisible">
+				By Chris Flinchbaugh<br/>
+				Created July, 2015
 			</div>
-	
-		 	<div id="navigationWrapper">
-		 		<%= navWrapperContent %>
-		 	</div>
-	
+			
+			<div id = "aboutBtnDiv">
+				<button type = 'button' class = 'about' id = 'aboutBtn'>About</button>
+			</div>
 		</div>
 	</script> 
 
-	<!-- 2: Navigation Menu -->
-	<script type="text/template" id="navigationTemplate">
+	<!-- 1: Mode Menu -->
+	<script type="text/template" id="modeTemplate">
+		
+		<div id = "modeBtns">
+			<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
+			<button type = 'button' class = 'mode' id = 'Hiragana'>Hiragana</button>
+			<button type = 'button' class = 'mode' id = 'Katakana'>Katakana</button>
+			<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
+		</div>
+	</script> 
+
+	<!-- 2: Secondary Mode -->
+	<script type="text/template" id="secondaryModeTemplate">
+	 	<div>
+			<button type = 'button' class = 'backBtn' id = 'secModeBackBtn'>Back</button>
+		</div>
+
+	 	<div id = "displayMode">
+	 		Mode: <br/>
+	 		<%= mode %>
+	 	</div>
+
+		<div id = "secondaryModeBtns">
+			<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+			<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+		</div>
+	</script>
+
+
+	<!-- 3: Display Card Menu -->
+	<script type="text/template" id="displayCardTemplate">
+
+		<div>
+			<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
+		</div>
+
+	 	<div id = "displayMode">
+	 		Mode: <br/>
+	 		<%= mode %> - <%= secondaryMode %>
+	 	</div>
+
 		<div id = 'romanjiNavigation'>
 			<button type='button' id='nextButton'>Next</button>
 			<button type = 'button' id='transButton'>Translation</button>
 		</div>
-
-		<div id = "displayCardContent">
-			<%= displayCardContent %>
-		</div>
-	</script>
-
-	<!-- 3: Display Card Menu -->
-	<script type="text/template" id="displayCardTemplate">
+	
 		<div id = "imageContent" >
 			<img src="<%= imageContent %>">
 		</div>
@@ -66,6 +90,8 @@
 			<%= bodyContent %>
 		</div>
 	</script>
+
+	
 	<script src="CardModel.js"></script>
 	<script src="View.js"></script>
 </body>
