@@ -1,29 +1,88 @@
+button {
+    padding:12px;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+
+#wrapperTemplate{
+	overflow: hidden;
+}
+
 #contentWrapper{
 	padding: 15px;
 }
 
 #nestedContent{
-	min-height: 400px;
+	min-height: 60%;
+	max-height: 70%;
 }
 
-#mode, #displayMode, #modeBtns, #displaySecMode, #secondaryModeBtns, #romanjiNavigation, #bodyContent, #imageContent{
+#title, #mode, #displayMode, #modeBtns, #displaySecMode, #secondaryModeBtns, #cardNavigation, #bodyContent, #imageContent{
 	text-align: center;
+}
+
+.mode, .secondaryMode {
+	width: 80%;
+	padding: 2.5%;
+	margin: 5%;
+}
+
+#aboutContent{
+	/*display: none;*/
 }
 
 #displaySecMode{ 
   	padding-top: 12px;}
 
-#secondaryModeBtns, #romanjiNavigation{
+#secondaryModeBtns, #cardNavigation{
 	padding-top: 15px;
+}
+
+#cardNavigation{
+	float: left;
+	margin-bottom: 10px;
+	width: 100%;
+
+}
+#backBtnDiv{
+	width: 20%;
+	float: left;
+}
+
+.backBtn{
+	padding: 10px;
+	display: block;
+
+	
+}
+
+#displayMode{
+	width: 100%;
+	float: left;
+	margin-top: -4%;
+  	margin-bottom: 4%;	
+
 }
 
 #bodyContent{
 	padding: 10px;
   	font-weight: bold;
+  	font-size: xx-large;
 }
 			
 #imageContent{  
 	padding-top: 10px;
+	clear: left;
+}	
+
+#imageDisplayed{
+	width: 80%;
+	height: auto;
+}
+
+#nextButton{
+	width: 92px;
 }
 			
 .invisible {
@@ -43,3 +102,19 @@
 	-o-transition: opacity 0.25s;
 	-transition: opacity 0.25s;
 }
+
+
+
+@media only screen and (min-width: 350px) {
+
+.mode, .secondaryMode {
+	width: 250px;
+}
+
+#imageDisplayed{
+	width:auto;
+}
+
+
+}
+

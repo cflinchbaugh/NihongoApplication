@@ -60,6 +60,7 @@ View = Backbone.View.extend({
 	},
 
 	renderSecMode : function(i){
+			console.log("hit back button");
 		// get the html from the script template
 		var secModeHTML = document.getElementById('secondaryModeTemplate').innerHTML,
 		// compile the first template
@@ -174,8 +175,7 @@ View = Backbone.View.extend({
 		//If Image, display image and hide text (until Translate is pressed)
 		if (this.secondaryMode === "Image"){
 			//remove invisible class from text
-			$('#bodyContent').removeClass('visible');
-			$('#bodyContent').addClass('invisible');
+			$('#bodyContent').removeClass('visible').addClass('invisible');
 			
 			// $('#imageContent').removeClass('invisible');
 			// $('#imageContent').addClass('visible');
@@ -183,10 +183,10 @@ View = Backbone.View.extend({
 
 		//Else, if Romanji, display text and hide image (until Translate is pressed)
 		else{
+			console.log("Romanji");
 			//remove invisible class from image
 			$('#imageContent').addClass('invisible');
-			$('#bodyContent').addClass('visible');
-			$('#bodyContent').removeClass('invisible');
+			$('#bodyContent').addClass('visible').removeClass('invisible');
 		}
 	},
 
@@ -194,21 +194,19 @@ View = Backbone.View.extend({
 	translate : function(e){
 		if (this.secondaryMode === "Image"){
 			//remove invisible class from text
-			$('#bodyContent').removeClass('invisible');
-			$('#bodyContent').addClass('visible');
+			$('#bodyContent').removeClass('invisible').addClass('visible');
 		}
 
 		else{
 			//remove invisible class from image
-			$('#imageContent').removeClass('invisible');
-			$('#imageContent').addClass('visible');
+			$('#imageContent').removeClass('invisible').addClass('visible');
 		}
 		//No need to re-render		
 	},
 
 	renderAbout : function(e){
-		$('#aboutContent').toggleClass('invisible');
-		$('#aboutContent').toggleClass('visible');
+		$('#aboutContent').toggleClass('invisible visible');
+		//$('#aboutContent').toggleClass('visible');
 	}
 
 
