@@ -10,7 +10,7 @@ View = Backbone.View.extend({
 		this.initialRender();
 	},
 
-	//Initial rendering, later called to re-render the Mode select template
+	//Initial rendering only
 	initialRender: function(){
 		this.currentCollection.shuffleCollection();
 
@@ -20,16 +20,11 @@ View = Backbone.View.extend({
 		// compile the first template
 			compiledWrapper = _.template(wrapperHTML),
 	//Template1: ModeTemplate
-		// get the html from the script template
+		// get the html from the script template and compile it
 			modeHTML = document.getElementById('modeTemplate').innerHTML,
-		// compile the first template
 			compiledMode = _.template(modeHTML),
 		
-		//Get current content to pass into the template
-			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
-			RenderImage = this.currentCollection.at(this.i).get("image"),
-
-		// build the html from the template
+		// build the html from the template, pass in necessary content
 			compiledModeHTML = compiledMode({mode: 'Numbers', secondaryMode: 'Image'});
 			compiledWrapperHTML = compiledWrapper({otherTemplates: compiledModeHTML});
 
@@ -38,61 +33,58 @@ View = Backbone.View.extend({
 		
 		// Jam it all into the element
 			this.$el.html(compiledWrapperHTML);
+
+
+		// Set reused DOM references
+			this.$nestedContent = $('#nestedContent');
+			this.$aboutContent = $('#aboutContent');
+			this.$imageContent = $('#imageContent');
 	},
 
 	renderMode : function(i){
 		// get the html from the script template
 		var modeHTML = document.getElementById('modeTemplate').innerHTML,
+		
 		// compile the first template
 			compiledMode = _.template(modeHTML),
 		
-		//Get current content to pass into the template
-			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
-			RenderImage = this.currentCollection.at(this.i).get("image"),
-
-		// build the html from the template
+		// build the html from the template, pass in necessary content
 			compiledModeHTML = compiledMode({mode: this.mode, secondaryMode: 'Image'});
 		
 		// Jam it all into the element
-			//this.$el.html(compiledsecModeHTML);
-			$('#nestedContent').html(compiledModeHTML);
-
+			this.$nestedContent.html(compiledModeHTML);
 	},
 
 	renderSecMode : function(i){
-			console.log("hit back button");
 		// get the html from the script template
 		var secModeHTML = document.getElementById('secondaryModeTemplate').innerHTML,
-		// compile the first template
+		
+		// compile the second template
 			compiledSecMode = _.template(secModeHTML),
 		
-		//Get current content to pass into the template
-			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
-			RenderImage = this.currentCollection.at(this.i).get("image"),
-
-		// build the html from the template
+		// build the html from the template, pass in necessary content
 			compiledsecModeHTML = compiledSecMode({mode: this.mode, secondaryMode: 'Image'});
 		
 		// Jam it all into the element
-			//this.$el.html(compiledsecModeHTML);
-			$('#nestedContent').html(compiledsecModeHTML);
-
+			this.$nestedContent.html(compiledsecModeHTML);
 	},
 
 	renderCard : function(i){
 		// get the html from the script template
 			displayCardHTML = document.getElementById('displayCardTemplate').innerHTML,
+		
 		// compile the third/inner template
 			compiledDispCard = _.template(displayCardHTML),
+		
 		//Get current content to pass into the template
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
 			RenderImage = this.currentCollection.at(this.i).get("image");
-		// build the html from the second template
+		
+		// build the html from the template, pass in necessary content
 			compiledDispCardHTML = compiledDispCard({mode: this.mode, secondaryMode: this.secondaryMode, bodyContent: RenderRomanji, imageContent: RenderImage});
 	
 		// Jam it all into the element
-			//this.$el.html(compiledDispCardHTML);
-			$('#nestedContent').html(compiledDispCardHTML);
+			this.$nestedContent.html(compiledDispCardHTML);
 	},
 
 	//Bind events
@@ -108,7 +100,6 @@ View = Backbone.View.extend({
 	//Update mode, re-render
  	updateMode : function(e){
 		this.mode = e.target.id;
-		console.log("Mode: " + this.mode);
 		switch(this.mode){
 			case "Numbers":
 				this.currentCollection = numbers;
@@ -128,33 +119,30 @@ View = Backbone.View.extend({
 
 		//Shuffle each time a new mode is selected
 		this.currentCollection.shuffleCollection();
+		
 		//Reset the i value because each collection may have a different length,
 		this.i = -1;
 		
 		//Render content
-		//this.reRenderDispCard(this.i);
 		this.renderSecMode();
 	},
 
 	//Secondary Mode
-		//Update mode, re-render
  	updateSecondaryMode : function(e){
 		this.secondaryMode = e.target.id;
-		console.log(this.secondaryMode);
-
-
+		
 		//Shuffle each time a new mode is selected
 		this.currentCollection.shuffleCollection();
+		
 		//Reset the i value because each collection may have a different length,
 		i = 0;
 		
 		//Render content
 		this.renderCard(this.i);
 
-
 		//If Romanji, display text and hide image
 		if (this.secondaryMode === "Romanji"){
-			console.log("Why?");
+			//this.$imageContent.addClass('invisible');
 			$('#imageContent').addClass('invisible');
 			$('#bodyContent').removeClass('invisible');
 		}
@@ -174,17 +162,12 @@ View = Backbone.View.extend({
 
 		//If Image, display image and hide text (until Translate is pressed)
 		if (this.secondaryMode === "Image"){
-			//remove invisible class from text
 			$('#bodyContent').removeClass('visible').addClass('invisible');
-			
-			// $('#imageContent').removeClass('invisible');
-			// $('#imageContent').addClass('visible');
 		}
 
 		//Else, if Romanji, display text and hide image (until Translate is pressed)
 		else{
-			console.log("Romanji");
-			//remove invisible class from image
+			//this.$imageContent.addClass('invisible');
 			$('#imageContent').addClass('invisible');
 			$('#bodyContent').addClass('visible').removeClass('invisible');
 		}
@@ -193,33 +176,30 @@ View = Backbone.View.extend({
 	//Display translation 
 	translate : function(e){
 		if (this.secondaryMode === "Image"){
-			//remove invisible class from text
 			$('#bodyContent').removeClass('invisible').addClass('visible');
 		}
 
 		else{
-			//remove invisible class from image
+			//this.$imageContent.removeClass('invisible').addClass('visible');
 			$('#imageContent').removeClass('invisible').addClass('visible');
 		}
 		//No need to re-render		
 	},
 
 	renderAbout : function(e){
-		$('#aboutContent').toggleClass('invisible visible');
-		//$('#aboutContent').toggleClass('visible');
+		//$('#aboutContent').toggleClass('invisible visible');
+		this.$aboutContent.toggleClass('invisible visible');
 	}
-
 
 });
 
 	//NOTE: this.$el is equivalent to $("#renderHere")
 	var firstView = new View({el: $("#renderHere")});
-		// firstView.set("tagName","span");
-		// firstView.set("className","className");
-		// firstView.set("id","id");
+		
 
-	//Debugging
-	//viewCollection(this.currentColLen, this.currentCollection);
+
+//Debugging ----------------------------------------------------------------
+	//Call with: viewCollection(this.currentColLen, this.currentCollection);
 	//Debugging
 	var viewCollection = function(curLen, curCol){
 		console.log("Accessed");
