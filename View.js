@@ -208,3 +208,6 @@ View = Backbone.View.extend({
 			console.log(curCol.at(a).get("romanji"));
 		}
 	}
+
+
+

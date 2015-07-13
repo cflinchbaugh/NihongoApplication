@@ -9,26 +9,36 @@
 		}
 	});
 
+		var rom = [];
+			rom["Numbers"] = [];
+			rom["Hiragana"] = [];
+			rom["Katakana"] = [];
+			rom["Phrases"] = [];
+			
 		//Declare Collection
 		CardCollection = Backbone.Collection.extend({
 			model: Card,
-			initialize: function(){
-				this.bindEvents();
+			initialize: function(models, options){
+				_.extend(this, _.pick(options, "id"));
+								
+				$.ajax({
+					//Pull data from XC, pass in "options.id" to grab the correct XC collection per Backbone Collection
+					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + options.id + "?format=JSONP&callback=?",
+					dataType: "jsonp"
+				})
+					.done(function(response)
+					{
+						//Each time a new collection is made, create all the cards by looping over the XC content and pull the arguments
+						for (i = 0; i < response["CONTENTS"].length; i++){
+							createCards(options.id, i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
+						}
 
-			},
-			
-			bindEvents: function(){
-				this.on("add", function(){
-					console.log("Element added");
-				});
-			},
-
-			randomIntFromInterval: function(min, max){
-				return (Math.floor(Math.random()*(max-min+1)+min));
+						//After all the cards are created, put them into a single collection as determined by their options.id value
+						populateCollection(options.id);
+					});
 			},
 
 			shuffleCollection: function(){
-				//console.log("initial: " + JSON.stringify(this.toJSON()));
 				this.reset(this.shuffle(), {silent:true});
 				return this;
 			},
@@ -38,67 +48,48 @@
 			}
 		});
 
-//Paths
-		var absolutePath = "C:\\Users\\cflinchbaugh\\Desktop\\JavaScript_Training\\Nihongo\\",
-		absoluteNumbers = absolutePath + "Numbers\\",
-		absoluteHiragana = absolutePath + "Hiragana\\",
-		absoluteKatakana = absolutePath + "Katakana\\",
-
-	//Numbers
-		one = new Card({romanji: "ichi", image: absoluteNumbers + "1.png"}),
-		two = new Card({romanji: "ni", image: absoluteNumbers + "2.png"}),
-		three = new Card({romanji: "san", image: absoluteNumbers + "3.png"}),
-
-		numbers = new CardCollection([one, two, three]);
-		//viewCollectionContent("Numbers Collection: ", numbers);
+		function createCards(deck, i, rom, img){
+			this.rom[deck.toString()][i] = new Card({romanji: rom, image: "http://www.cflinchbaugh-trinity.com" + img});
+		}
 		
+		numbers = new CardCollection([], {id: "Numbers"});	
+		hiragana = new CardCollection([], {id: "Hiragana"});
+		katakana = new CardCollection([], {id: "Katakana"});
+		phrases = new CardCollection([], {id: "Phrases"});
 
-	//Hiragana
-		var e = new Card({romanji: "e", image: absoluteHiragana + "e.png"}),
-			u = new Card({romanji: "u", image: absoluteHiragana + "u.png"}),
-			o = new Card({romanji: "o", image: absoluteHiragana + "o.png"}),
-			ku = new Card({romanji: "ku", image: absoluteHiragana + "ku.png"});
-		
-		//Create and Populate Collection Instance
-		var hiragana = new CardCollection([]);
-		hiragana.add([e,u, o, ku]);
-		//viewCollectionContent("hiragana collection: ", hiragana);
+		function populateCollection(deck){
+			if (deck === "Numbers"){
+				for (i = 0; i < rom[deck].length; i++){
+					numbers.add(rom[deck][i]);
+				}
+			}
 
-	//Katakana
-		var a = new Card({romanji: "a", image: absoluteKatakana + "a.png"}),
-			e = new Card({romanji: "e", image: absoluteKatakana + "e.png"}),
-			i = new Card({romanji: "i", image: absoluteKatakana + "i.png"}),
-			o = new Card({romanji: "o", image: absoluteKatakana + "o.png"}),
-			u = new Card({romanji: "u", image: absoluteKatakana + "u.png"}),
-			ka = new Card({romanji: "ka", image: absoluteKatakana + "ka.png"}),
-			ke = new Card({romanji: "ke", image: absoluteKatakana + "ke.png"}),
-			ki = new Card({romanji: "ki", image: absoluteKatakana + "ki.png"}),
-			ko = new Card({romanji: "ko", image: absoluteKatakana + "ko.png"}),
-			ku = new Card({romanji: "ku", image: absoluteKatakana + "ku.png"}),
-			sa = new Card({romanji: "sa", image: absoluteKatakana + "sa.png"}),
-			se = new Card({romanji: "se", image: absoluteKatakana + "se.png"}),
-			shi = new Card({romanji: "shi", image: absoluteKatakana + "shi.png"}),
-			so = new Card({romanji: "so", image: absoluteKatakana + "so.png"}),
-			su = new Card({romanji: "su", image: absoluteKatakana + "su.png"});
+			else if (deck === "Hiragana"){
+				for (i = 0; i < rom[deck].length; i++){
+					hiragana.add(rom[deck][i]);
+				}	
+			}
 
-		//Create and Populate Collection Instance
-		var katakana = new CardCollection([]);
-		katakana.add([a, e, i, o, u, ka, ke, ki, ko, ku, sa, se, shi, so, su]);
-		//viewCollectionContent("katakana collection: ", katakana);
+			else if (deck === "Katakana"){
+				for (i = 0; i < rom[deck].length; i++){
+					katakana.add(rom[deck][i]);
+				}	
+			}
 
-	//Phrases
-		var phrase1 = new Card({romanji: "Phrase1", image: "testPath_Phrase1"}),
-			phrase2 = new Card({romanji: "Phrase2", image: "testPath_Phrase2"});
-		
-		//Create and Populate Collection Instance
-		var phrases = new CardCollection([]);
-		phrases.add([phrase1,phrase2]);
-		//viewCollectionContent("Phrase collection: ", phrases);
+			else if (deck === "Phrases"){
+				for (i = 0; i < rom[deck].length; i++){
+					phrases.add(rom[deck][i]);
+				}	
+			}
+		}
 
 	//Debugging only
 	function viewCollectionContent(string, collection){
 		console.log(string + " " + JSON.stringify(collection.toJSON()));
 	}
+
+
+
 
 
 	
