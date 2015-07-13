@@ -47,7 +47,6 @@ button {
 }
 #backBtnDiv{
 	width: 20%;
-	float: left;
 }
 
 .backBtn{
@@ -59,7 +58,6 @@ button {
 
 #displayMode{
 	width: 100%;
-	float: left;
 	margin-top: -4%;
   	margin-bottom: 4%;	
 
@@ -85,6 +83,10 @@ button {
 	width: 92px;
 }
 			
+#secondTemplateWrapper, #displayCardWrapper{
+	opacity: 0;
+}
+
 .invisible {
 	opacity: 0;
 
@@ -95,7 +97,7 @@ button {
 }
 
 .visible {
-	opacity:1;
+	opacity: 1 !important;
 	
 	-webkit-transition: opacity 0.25s;
 	-moz-transition: opacity 0.25s;
@@ -107,14 +109,23 @@ button {
 
 @media only screen and (min-width: 350px) {
 
-.mode, .secondaryMode {
-	width: 250px;
+	.mode, .secondaryMode {
+		width: 250px;
+	}
+
+	#imageDisplayed{
+		width:auto;
+	}
+
+
 }
 
-#imageDisplayed{
-	width:auto;
+
+@media only screen and (min-width: 1125px) {
+
+	#modeBtns{
+		width: 70%;
+	  	padding-left: 15%;
+	}
+
 }
-
-
-}
-

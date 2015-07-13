@@ -93,8 +93,29 @@ View = Backbone.View.extend({
 			"click #nextButton": "nextCard",
 			"click #transButton": "translate",
 			"click #aboutBtn": "renderAbout",
-			"click #secModeBackBtn": "renderMode",
-			"click #cardBackBtn": "renderSecMode",
+			"click #secModeBackBtn": "backToMode",
+			"click #cardBackBtn": "backToSecMode",
+	},
+
+	//Re-render Mode via the Back Button
+	backToMode : function(e){
+		this.renderMode();
+
+		$("#modeBtns").addClass('invisible');
+		
+		setTimeout(function(){
+			$("#modeBtns").removeClass('invisible');
+			$("#modeBtns").addClass('visible');
+		}, 100); 
+	}, 
+
+	//Re-render Second Mode via the Back Button
+	backToSecMode: function(e){
+		this.renderSecMode();
+				
+		setTimeout(function(){
+			$("#secondTemplateWrapper").addClass('visible');
+		}, 100); 
 	},
 
 	//Update mode, re-render
@@ -123,8 +144,15 @@ View = Backbone.View.extend({
 		//Reset the i value because each collection may have a different length,
 		this.i = -1;
 		
+		//Fade out?
+		//$("#modeBtns").addClass('invisible');
+		
 		//Render content
 		this.renderSecMode();
+		
+		setTimeout(function(){
+			$("#secondTemplateWrapper").addClass('visible');
+		}, 100); 
 	},
 
 	//Secondary Mode
@@ -140,8 +168,13 @@ View = Backbone.View.extend({
 		//Render content
 		this.renderCard(this.i);
 
+		setTimeout(function(){
+			$("#displayCardWrapper").addClass('visible');
+		}, 100); 
+
 		//If Romanji, display text and hide image
 		if (this.secondaryMode === "Romanji"){
+			console.log(this.$imageContent);
 			//this.$imageContent.addClass('invisible');
 			$('#imageContent').addClass('invisible');
 			$('#bodyContent').removeClass('invisible');

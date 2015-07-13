@@ -42,53 +42,56 @@
 	<!-- 1: Mode Menu -->
 	<script type="text/template" id="modeTemplate">
 		<div id = "modeBtns">
-			<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
 			<button type = 'button' class = 'mode' id = 'Hiragana'>Hiragana</button>
 			<button type = 'button' class = 'mode' id = 'Katakana'>Katakana</button>
+			<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
 			<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
 		</div>
 	</script> 
 
 	<!-- 2: Secondary Mode -->
 	<script type="text/template" id="secondaryModeTemplate">
-	 	<div id = "backBtnDiv">
-			<button type = 'button' class = 'backBtn' id = 'secModeBackBtn'>Back</button>
-		</div>
+	 	<div id = "secondTemplateWrapper">
+		 	<div id = "backBtnDiv">
+				<button type = 'button' class = 'backBtn' id = 'secModeBackBtn'>Back</button>
+			</div>
 
-	 	<div id = "displayMode">
-	 		Mode: <br/>
-	 		<%= mode %>
-	 	</div>
+		 	<div id = "displayMode">
+		 		Mode: <br/>
+		 		<%= mode %>
+		 	</div>
 
-		<div id = "secondaryModeBtns">
-			<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
-			<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+			<div id = "secondaryModeBtns">
+				<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+				<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+			</div>
 		</div>
 	</script>
 
 	<!-- 3: Display Card Menu -->
 	<script type="text/template" id="displayCardTemplate">
+		<div id = "displayCardWrapper">
+			<div id = "backBtnDiv">
+				<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
+			</div>
 
-		<div id = "backBtnDiv">
-			<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
-		</div>
+		 	<div id = "displayMode">
+		 		Mode: <br/>
+		 		<%= mode %> - <%= secondaryMode %>
+		 	</div>
 
-	 	<div id = "displayMode">
-	 		Mode: <br/>
-	 		<%= mode %> - <%= secondaryMode %>
-	 	</div>
+			<div id = "imageContent" >
+				<img src="<%= imageContent %>" id = "imageDisplayed">
+			</div>
 
-		<div id = "imageContent" >
-			<img src="<%= imageContent %>" id = "imageDisplayed">
-		</div>
-
-		<div id = "bodyContent" class="invisible">
-			<%= bodyContent %>
-		</div>
-	
-		<div id = 'cardNavigation'>
-			<button type = 'button' id='transButton'>Translation</button>
-			<button type='button' id='nextButton'>Next</button>
+			<div id = "bodyContent" class="invisible">
+				<%= bodyContent %>
+			</div>
+		
+			<div id = 'cardNavigation'>
+				<button type = 'button' id='transButton'>Translation</button>
+				<button type='button' id='nextButton'>Next</button>
+			</div>
 		</div>
 	</script>
 

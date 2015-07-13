@@ -58,6 +58,7 @@
 		phrases = new CardCollection([], {id: "Phrases"});
 
 		function populateCollection(deck){
+			console.log(rom[deck].length);
 			if (deck === "Numbers"){
 				for (i = 0; i < rom[deck].length; i++){
 					numbers.add(rom[deck][i]);
