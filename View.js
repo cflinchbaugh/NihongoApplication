@@ -121,6 +121,7 @@ View = Backbone.View.extend({
 	//Update mode, re-render
  	updateMode : function(e){
 		this.mode = e.target.id;
+		
 		switch(this.mode){
 			case "Numbers":
 				this.currentCollection = numbers;
@@ -144,12 +145,10 @@ View = Backbone.View.extend({
 		//Reset the i value because each collection may have a different length,
 		this.i = -1;
 		
-		//Fade out?
-		//$("#modeBtns").addClass('invisible');
-		
 		//Render content
 		this.renderSecMode();
 		
+		//Animation between modes
 		setTimeout(function(){
 			$("#secondTemplateWrapper").addClass('visible');
 		}, 100); 
@@ -168,6 +167,7 @@ View = Backbone.View.extend({
 		//Render content
 		this.renderCard(this.i);
 
+		//Animation between modes
 		setTimeout(function(){
 			$("#displayCardWrapper").addClass('visible');
 		}, 100); 
@@ -193,6 +193,7 @@ View = Backbone.View.extend({
 		//Render next card (must come before applying classes)
 		this.renderCard(this.i);
 
+		//Animation between modes
 		setTimeout(function(){
 			$("#secondTemplateWrapper").addClass('visible');
 		}, 100); 
