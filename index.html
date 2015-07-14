@@ -51,16 +51,16 @@
 
 	<!-- 2: Secondary Mode -->
 	<script type="text/template" id="secondaryModeTemplate">
+	 	<div id = "backBtnDiv">
+			<button type = 'button' class = 'backBtn' id = 'secModeBackBtn'>Back</button>
+		</div>
+
+	 	<div id = "displayMode">
+	 		Mode: <br/>
+	 		<%= mode %>
+	 	</div>
+
 	 	<div id = "secondTemplateWrapper">
-		 	<div id = "backBtnDiv">
-				<button type = 'button' class = 'backBtn' id = 'secModeBackBtn'>Back</button>
-			</div>
-
-		 	<div id = "displayMode">
-		 		Mode: <br/>
-		 		<%= mode %>
-		 	</div>
-
 			<div id = "secondaryModeBtns">
 				<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
 				<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
@@ -70,16 +70,16 @@
 
 	<!-- 3: Display Card Menu -->
 	<script type="text/template" id="displayCardTemplate">
+		<div id = "backBtnDiv">
+			<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
+		</div>
+
+	 	<div id = "displayMode">
+	 		Mode: <br/>
+	 		<%= mode %> - <%= secondaryMode %>
+	 	</div>
+
 		<div id = "displayCardWrapper">
-			<div id = "backBtnDiv">
-				<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
-			</div>
-
-		 	<div id = "displayMode">
-		 		Mode: <br/>
-		 		<%= mode %> - <%= secondaryMode %>
-		 	</div>
-
 			<div id = "imageContent" >
 				<img src="<%= imageContent %>" id = "imageDisplayed">
 			</div>

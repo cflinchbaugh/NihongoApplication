@@ -193,6 +193,14 @@ View = Backbone.View.extend({
 		//Render next card (must come before applying classes)
 		this.renderCard(this.i);
 
+		setTimeout(function(){
+			$("#secondTemplateWrapper").addClass('visible');
+		}, 100); 
+
+		setTimeout(function(){
+			$("#displayCardWrapper").addClass('visible');
+		}, 100); 
+
 		//If Image, display image and hide text (until Translate is pressed)
 		if (this.secondaryMode === "Image"){
 			$('#bodyContent').removeClass('visible').addClass('invisible');

@@ -1,5 +1,6 @@
 button {
     padding:12px;
+    outline: none;
     border-radius: 20px;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -47,6 +48,7 @@ button {
 }
 #backBtnDiv{
 	width: 20%;
+	float: left;
 }
 
 .backBtn{
@@ -60,6 +62,7 @@ button {
 	width: 100%;
 	margin-top: -4%;
   	margin-bottom: 4%;	
+  	clear: left;
 
 }
 
@@ -84,6 +87,7 @@ button {
 }
 			
 #secondTemplateWrapper, #displayCardWrapper{
+	/*#secondTemplateWrapper{*/
 	opacity: 0;
 }
 
