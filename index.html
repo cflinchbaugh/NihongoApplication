@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Backbone</title>
+	<title>Nihongo Application</title>
 	<script src="jquery-1.11.3.min.js"></script>
 	<script src="underscore-min.js"></script>
 	<script src="backbone-min.js"></script>
@@ -10,7 +10,9 @@
 </head>
 
 <body id = "contentWrapper">
-	
+	<div id = "loadingDiv">
+		Loading...
+	</div>
 	<div id="renderHere">
 		<!-- Templates will be loaded into the renderHere div -->
 	</div>
@@ -28,14 +30,6 @@
 				<%= otherTemplates %>
 			</div>
 
-			<div id = "aboutBtnDiv">
-				<button type = 'button' class = 'about' id = 'aboutBtn'>About</button>
-			</div>
-
-			<div id="aboutContent" class = "invisible">
-				By Chris Flinchbaugh<br/>
-				Created July, 2015
-			</div>
 		</div>
 	</script> 
 
@@ -47,6 +41,19 @@
 			<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
 			<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
 		</div>
+			<div id = "aboutBtnDiv">
+				<button type = 'button' class = 'about' id = 'aboutBtn'>About</button>
+			</div>
+
+			<div id="aboutContent" class = "invisible hide">
+				By Chris Flinchbaugh<br/>
+				Created July, 2015<br/>
+				NihongoApplication V 1.0.0<br/>
+				<br/>
+				Implements Built using the Backbone.JS framework, <br/>
+				blood, sweat, and tears.
+
+			</div>
 	</script> 
 
 	<!-- 2: Secondary Mode -->

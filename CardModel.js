@@ -20,14 +20,15 @@
 			model: Card,
 			initialize: function(models, options){
 				_.extend(this, _.pick(options, "id"));
-								
-				$.ajax({
+						
+				// returning this ajax call makes a "Promise";
+				// if multiple calls were made, set the ajax requests to variables and work with them instead of a direct return		
+				return $.ajax({
 					//Pull data from XC, pass in "options.id" to grab the correct XC collection per Backbone Collection
 					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + options.id + "?format=JSONP&callback=?",
 					dataType: "jsonp"
 				})
-					.done(function(response)
-					{
+					.done(function(response){
 						//Each time a new collection is made, create all the cards by looping over the XC content and pull the arguments
 						for (i = 0; i < response["CONTENTS"].length; i++){
 							createCards(options.id, i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
@@ -52,10 +53,13 @@
 			this.rom[deck.toString()][i] = new Card({romanji: rom, image: "http://www.cflinchbaugh-trinity.com" + img});
 		}
 		
-		numbers = new CardCollection([], {id: "Numbers"});	
-		hiragana = new CardCollection([], {id: "Hiragana"});
-		katakana = new CardCollection([], {id: "Katakana"});
-		phrases = new CardCollection([], {id: "Phrases"});
+		//TODO: Moving to View, delete these later when that works
+		// numbers = new CardCollection([], {id: "Numbers"});	
+		// hiragana = new CardCollection([], {id: "Hiragana"});
+		// katakana = new CardCollection([], {id: "Katakana"});
+		// phrases = new CardCollection([], {id: "Phrases"});
+
+		// $('#renderHere').css('display', 'block');
 
 		function populateCollection(deck){
 			console.log(rom[deck].length);

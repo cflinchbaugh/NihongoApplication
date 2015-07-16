@@ -1,22 +1,34 @@
 View = Backbone.View.extend({
 
-	mode: "Numbers",
-	secondaryMode: "Image",
 	i:-1,
-	currentCollection: numbers,
-	currentColLen: numbers.length,
-	
+	// mode: "Numbers",
+	// secondaryMode: "Image",
+	// currentCollection: numbers,
+	// currentColLen: numbers.length,
+
+
 	initialize: function(){
 		this.initialRender();
+		//this.createCollections();
 	},
+
+	// createCollections: function(){
+	// 	numbers = new CardCollection([], {id: "Numbers"});	
+	// 	hiragana = new CardCollection([], {id: "Hiragana"});
+	// 	katakana = new CardCollection([], {id: "Katakana"});
+	// 	phrases = new CardCollection([], {id: "Phrases"});
+	// 	console.log("CreateCollectionsCompleted");
+	// 	console.log(katakana);
+	// },
 
 	//Initial rendering only
 	initialRender: function(){
-		this.currentCollection.shuffleCollection();
+		//this.currentCollection.shuffleCollection();
 
 	//Template0: WrapperTemplate
 		// get the html from the script template
-		var wrapperHTML = document.getElementById('wrapperTemplate').innerHTML,
+			var wrapperHTML = document.getElementById('wrapperTemplate').innerHTML,
+			
 		// compile the first template
 			compiledWrapper = _.template(wrapperHTML),
 	//Template1: ModeTemplate
@@ -25,7 +37,7 @@ View = Backbone.View.extend({
 			compiledMode = _.template(modeHTML),
 		
 		// build the html from the template, pass in necessary content
-			compiledModeHTML = compiledMode({mode: 'Numbers', secondaryMode: 'Image'});
+			compiledModeHTML = compiledMode({mode: 'Numbers', secondaryMode: 'Image'}),
 			compiledWrapperHTML = compiledWrapper({otherTemplates: compiledModeHTML});
 
 		// Jam the inner(Mode) into the outer(Wrapper)
@@ -63,10 +75,10 @@ View = Backbone.View.extend({
 			compiledSecMode = _.template(secModeHTML),
 		
 		// build the html from the template, pass in necessary content
-			compiledsecModeHTML = compiledSecMode({mode: this.mode, secondaryMode: 'Image'});
+			compiledSecModeHTML = compiledSecMode({mode: this.mode, secondaryMode: 'Image'});
 		
 		// Jam it all into the element
-			this.$nestedContent.html(compiledsecModeHTML);
+			this.$nestedContent.html(compiledSecModeHTML);
 	},
 
 	renderCard : function(i){
@@ -78,7 +90,7 @@ View = Backbone.View.extend({
 		
 		//Get current content to pass into the template
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
-			RenderImage = this.currentCollection.at(this.i).get("image");
+			RenderImage = this.currentCollection.at(this.i).get("image"),
 		
 		// build the html from the template, pass in necessary content
 			compiledDispCardHTML = compiledDispCard({mode: this.mode, secondaryMode: this.secondaryMode, bodyContent: RenderRomanji, imageContent: RenderImage});
@@ -174,7 +186,7 @@ View = Backbone.View.extend({
 
 		//If Romanji, display text and hide image
 		if (this.secondaryMode === "Romanji"){
-			console.log(this.$imageContent);
+			//console.log(this.$imageContent);
 			//this.$imageContent.addClass('invisible');
 			$('#imageContent').addClass('invisible');
 			$('#bodyContent').removeClass('invisible');
@@ -218,27 +230,47 @@ View = Backbone.View.extend({
 	//Display translation 
 	translate : function(e){
 		if (this.secondaryMode === "Image"){
-			$('#bodyContent').removeClass('invisible').addClass('visible');
+			$('#bodyContent').toggleClass('invisible visible');
 		}
 
 		else{
-			//this.$imageContent.removeClass('invisible').addClass('visible');
-			$('#imageContent').removeClass('invisible').addClass('visible');
+			$('#imageContent').toggleClass('invisible visible');
 		}
 		//No need to re-render		
 	},
 
 	renderAbout : function(e){
-		//$('#aboutContent').toggleClass('invisible visible');
-		this.$aboutContent.toggleClass('invisible visible');
-	}
+//TODO: See Joe/Ian
+//apparently THIS changed when I reloaded the template so now I have to make a DOM call
+		//$('#aboutContent').toggleClass('hide');
+		//this.$classesStringified = $('#aboutContent').attr('class');
+		
+		if ($('#aboutContent').hasClass('hide')){
+			$('#aboutContent').toggleClass('hide');
+			setTimeout(function(){
+				$('#aboutContent').toggleClass('invisible visible');
+			}, 100); 
+		}
 
+		else{
+			$('#aboutContent').toggleClass('invisible visible');
+			setTimeout(function(){
+				$('#aboutContent').toggleClass('hide');
+			}, 100); 
+		}
+	}
 });
 
 	//NOTE: this.$el is equivalent to $("#renderHere")
 	var firstView = new View({el: $("#renderHere")});
 		
-
+	var createCollections = function(){
+		numbers = new CardCollection([], {id: "Numbers"});	
+		hiragana = new CardCollection([], {id: "Hiragana"});
+		katakana = new CardCollection([], {id: "Katakana"});
+		phrases = new CardCollection([], {id: "Phrases"});
+	}
+		$.when(createCollections()).done(console.log("Finished!"));
 
 //Debugging ----------------------------------------------------------------
 	//Call with: viewCollection(this.currentColLen, this.currentCollection);

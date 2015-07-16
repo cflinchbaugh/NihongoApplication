@@ -1,3 +1,22 @@
+#loadingDiv{
+display: none;
+
+	text-align: center;
+	border: solid;
+	border-radius: 13px;
+	width: 125%;
+	height: 5%;
+	background-color: grey;
+	opacity: 30;
+	overflow: hidden;
+	margin-left: -13%;
+	padding-top: 3%;
+}
+
+#renderHere{
+	display: block;
+}
+
 button {
     padding:12px;
     outline: none;
@@ -5,6 +24,7 @@ button {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
 }
+
 
 #wrapperTemplate{
 	overflow: hidden;
@@ -29,20 +49,36 @@ button {
 	margin: 5%;
 }
 
+.hide {
+	display: none !important;
+}
 #aboutContent{
-	/*display: none;*/
+	display: block;
+
+	position: fixed;
+	width: 75%;
+	margin-top: -400px;
+	padding: 10px;
+	border: solid;
+	border-radius: 10px;
+	border-color: deeppink;
+	background-color: crimson;
+	color: white;
+	text-shadow: 2px 2px black;
+	text-align: center;
+}
+
 }
 
 #displaySecMode{ 
   	padding-top: 12px;}
 
 #secondaryModeBtns, #cardNavigation{
-	padding-top: 15px;
+	/*padding-top: 15px;*/
 }
 
 #cardNavigation{
 	float: left;
-	margin-bottom: 10px;
 	width: 100%;
 
 }
@@ -78,7 +114,7 @@ button {
 }	
 
 #imageDisplayed{
-	width: 80%;
+	width:auto;
 	height: auto;
 }
 
@@ -111,19 +147,37 @@ button {
 
 
 
-@media only screen and (min-width: 350px) {
+@media only screen and (max-width: 674px) {
 
 	.mode, .secondaryMode {
-		width: 250px;
+		height: 13%;
+		width: 85%;
+		margin: 4%;
+	}
+
+	.backBtn {
+		width: 80px;
+		height: 50px;
+	}
+
+	#aboutBtn {
+		float: left;
+		margin-top: 13%;
+		height: 7%;
+		width: 34%;
+		padding: 0px;
 	}
 
 	#imageDisplayed{
 		width:auto;
 	}
 
+	#transButton, #nextButton {
+		width: 50%;
+  		margin-bottom: 5%;
+	}
 
 }
-
 
 @media only screen and (min-width: 1125px) {
 
