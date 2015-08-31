@@ -28,7 +28,7 @@
 					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + options.id + "?format=JSONP&callback=?",
 					dataType: "jsonp"
 				})
-					.done(function(response){
+					.success(function(response){
 						//Each time a new collection is made, create all the cards by looping over the XC content and pull the arguments
 						for (i = 0; i < response["CONTENTS"].length; i++){
 							createCards(options.id, i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
@@ -36,6 +36,7 @@
 
 						//After all the cards are created, put them into a single collection as determined by their options.id value
 						populateCollection(options.id);
+						console.log("Finished");
 					});
 			},
 

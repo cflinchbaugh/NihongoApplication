@@ -10,9 +10,35 @@
 </head>
 
 <body id = "contentWrapper">
+
+	<!-- <ul class = 'menu'>
+		<li><a href = '#'>Home</a></li>
+		<li><a href = '#'>Stuff</a>
+			<ul>
+				<li><a href = '#'>More Stuff</a></li>
+				<li><a href = '#'>Even More Stuff</a></li>
+			</ul>
+		</li>
+		<li><a href = '#'>Contact Us</a>
+			<ul>
+				<li><a href = '#'>Why Bother?</a></li>
+				<li><a href = '#'>REASONS!</a></li>
+				<li><a href = '#'>I Suppose</a></li>
+			</ul>
+		</li>
+	</ul> -->
+
 	<div id = "loadingDiv">
 		Loading...
 	</div>
+
+	<div id = "title">
+		<h1>Nihongo</h1>
+	</div>
+<!-- 	<div id = "mainBanner">
+		Banner Here
+	</div> -->
+
 	<div id="renderHere">
 		<!-- Templates will be loaded into the renderHere div -->
 	</div>
@@ -22,27 +48,42 @@
 <!-- TEMPLATES -->	
 	<!-- 0: Wrapper / About Menu -->
 	<script type="text/template" id="wrapperTemplate">
-		<div id = "title">
-			<h1>Nihongo</h1>
-		</div>
-		<div>
-			<div id = "nestedContent">
-				<%= otherTemplates %>
-			</div>
 
-		</div>
-	</script> 
+		<div id = "nestedContent">
+	 		<%= otherTemplates %>
+	 	</div>
+
+	 	</script> 
 
 	<!-- 1: Mode Menu -->
 	<script type="text/template" id="modeTemplate">
-		<div id = "modeBtns">
-			<button type = 'button' class = 'mode' id = 'Hiragana'>Hiragana</button>
-			<button type = 'button' class = 'mode' id = 'Katakana'>Katakana</button>
-			<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
-			<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
+		<div class = "navWrapper">
+			<div id = "modeBtns">
+				<button type = 'button' class = 'mode' id = 'Hiragana'>Hiragana</button>
+				<button type = 'button' class = 'mode' id = 'Katakana'>Katakana</button>
+				<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
+				<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
+			</div>
+			
+			<div id = 'footerBtnWrapper'>
+				<div id = "feedbackBtnDiv">
+					<button type = 'button' class = 'feedbackBtn' id = 'feedbackBtn'>Feedback</button>
+				</div>
+
+				<div id = "aboutBtnDiv">
+					<button type = 'button' class = 'about' id = 'aboutBtn'>About</button>
+				</div>
+			</div>
 		</div>
-			<div id = "aboutBtnDiv">
-				<button type = 'button' class = 'about' id = 'aboutBtn'>About</button>
+
+		<div class = "rightCol">
+			<div class = "desktopText">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet mi ac ipsum pellentesque, in ullamcorper erat porttitor. Praesent condimentum sem arcu, vitae vestibulum nulla facilisis eget. Integer sit amet dignissim felis, ut ullamcorper purus. Phasellus cursus sapien posuere elit dignissim, gravida ultricies ligula laoreet. 
+				</p>
+				<p>Proin laoreet nulla vel sem placerat fringilla. Quisque condimentum tortor elit, eget dapibus quam mattis sed. Nam mattis molestie elit, quis tristique purus interdum sed. Praesent nec maximus ipsum. 
+				</p>
+				<p>Vestibulum pulvinar lectus nec sem mattis, eu pharetra orci luctus. Maecenas semper leo diam, nec condimentum ex cursus at. Aliquam sodales laoreet lorem, eget iaculis magna consequat in. Nullam consequat vestibulum sapien at ultricies. Nunc gravida urna quis magna convallis, in facilisis mauris malesuada. 
+				</p>
 			</div>
 
 			<div id="aboutContent" class = "invisible hide">
@@ -50,49 +91,62 @@
 				Created July, 2015<br/>
 				NihongoApplication V 1.0.0<br/>
 				<br/>
-				Implements Built using the Backbone.JS framework, <br/>
-				blood, sweat, and tears.
+				Built using the Backbone.JS framework, <br/>
+				blood, sweat, & tears.
 
 			</div>
+		</div>
+
 	</script> 
 
 	<!-- 2: Secondary Mode -->
 	<script type="text/template" id="secondaryModeTemplate">
-	 	<div id = "backBtnDiv">
-			<button type = 'button' class = 'backBtn' id = 'secModeBackBtn'>Back</button>
+		<div class = "navWrapper">
+		 	<div class = "backBtnDiv">
+				<button type = 'button' class = 'backBtn' id = 'secModeBackBtn'>Back</button>
+			</div>
+
+		 	<div id = "displayMode">
+		 		Mode: <br/>
+		 		<%= mode %>
+		 	</div>
+
+		 	<div id = "secondTemplateWrapper">
+				<div id = "secondaryModeBtns">
+					<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+					<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+				</div>
+			</div>
 		</div>
-
-	 	<div id = "displayMode">
-	 		Mode: <br/>
-	 		<%= mode %>
-	 	</div>
-
-	 	<div id = "secondTemplateWrapper">
-			<div id = "secondaryModeBtns">
-				<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
-				<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+		<div class = 'rightCol'>
+			<div class = "desktopText">
+				<p>Here you can select which mode you would like to practice.
+				</p>
+				<p>Image will display the appropriate Japanese character initially, allowing you the chance to identify it.
+				</p>
+				<p>Romanji will display the English phonetic equivalent of a character, allowing you the chance to write the character (currently writing is unsupported, we recommend using a pen and paper to best hone your skills).
+				</p>
 			</div>
 		</div>
 	</script>
 
 	<!-- 3: Display Card Menu -->
 	<script type="text/template" id="displayCardTemplate">
-		<div id = "backBtnDiv">
-			<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
-		</div>
-
-	 	<div id = "displayMode">
-	 		Mode: <br/>
-	 		<%= mode %> - <%= secondaryMode %>
-	 	</div>
-
-		<div id = "displayCardWrapper">
-			<div id = "imageContent" >
-				<img src="<%= imageContent %>" id = "imageDisplayed">
+		<div class = "navWrapper">
+			<div class = "backBtnDiv">
+				<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
 			</div>
 
-			<div id = "bodyContent" class="invisible">
-				<%= bodyContent %>
+		 	<div id = "displayMode">
+		 		Mode: <br/>
+		 		<%= mode %> - <%= secondaryMode %>
+		 	</div>
+	 	</div>
+
+
+		<div id = "displayCardWrapper">
+			<div id = "cardContent">
+				<%=cardContentTemplateHere%>
 			</div>
 		
 			<div id = 'cardNavigation'>
@@ -101,9 +155,83 @@
 			</div>
 		</div>
 	</script>
+<!-- 			<div id = "imageContent" >
+				<img src="<%= imageContent %>" id = "imageDisplayed">
+			</div>
 
+			<div id = "bodyContent" class="invisible">
+				<%= bodyContent %>
+			</div> -->
+
+	<!-- 3.5: Card Content -->
+	<script type="text/tempalte" id="cardContentTemplate">
+
+		<div id = "imageContent" >
+			<img src="<%= imageContent %>" id = "imageDisplayed">
+		</div>
+
+		<div id = "bodyContent" class="invisible">
+			<%= bodyContent %>
+		</div>
+	</script>
+
+
+	<!-- 4: Feedback Form -->
+	<script type="text/template" id="feedbackFormTemplate" >
+
+		<div id = "feedbackFormWrapper">
+			<div id = "homeBtnDiv">
+				<button type = 'button' class = 'homeBtn' id = 'homeBtn'>Home</button>
+			</div>
+
+			<form id = 'feedbackForm' action='http://www.applicationsiteaddress.com/test.cfm' method='post'>
+				<p>
+				  	<label for="email">Email</label>
+				  	<input type="email" 
+				  		id="email" 
+				  		name="email" 
+			  			placeholder="your@email.address" 
+			  			required maxlength="50" />
+				</p>
+				<p>
+					<label for="firstname">First Name</label>
+				  	<input type="text" 
+				  		id="firstname" 
+				  		name="firstname" 
+				  		placeholder="first name" 
+				  		required maxlength="20" />
+				</p>
+				<p>
+				  	<label for="lastname">Last Name</label>
+				  	<input type="text" 
+					  	id="lastname" 
+					  	name="lastname" 
+					  	placeholder="last name" 
+					  	required maxlength="20" />
+				</p>
+				<p>
+				  	<label>
+					    Feedback:
+					    
+					    <textarea rows="5" cols="60" name="feedback">
+					    </textarea>
+					</label>
+				</p>
+				<p>
+				  	<label>
+					    <input type="checkbox" name="newsletter" />
+				    	Sign up for our newsletter
+					</label>
+				</p>
+
+				<input type="submit" value="Submit" class = 'backBtn' id = 'submitFeedbackBtn'>
+			</form>
+		</div>
+
+	</script>
 	
 	<script src="CardModel.js"></script>
+
 	<script src="View.js"></script>
 </body>
 </html>

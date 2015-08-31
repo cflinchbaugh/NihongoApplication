@@ -1,3 +1,101 @@
+/*
+
+.menu, .menu ul, .menu li,
+.menu a {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: crimson;
+}
+ 
+.menu {
+    height: 40px;
+    width: 100%;
+    background: crimson;
+} 
+.menu li {
+    position: relative;
+    list-style: none;
+    float: left;
+    display: block;
+    height: 40px;
+    width: 25%;
+    background: crimson;
+}
+
+.menu li a {
+
+    display: block;
+    padding: 0 14px;
+    margin: 6px 0;
+    line-height: 28px;
+    text-decoration: none;
+ 
+    border-left: 1px solid #393942;
+ 
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+ 
+    color: #f3f3f3;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+ 
+    -webkit-transition: color .2s ease-in-out;
+    -moz-transition: color .2s ease-in-out;
+    -o-transition: color .2s ease-in-out;
+    -ms-transition: color .2s ease-in-out;
+    transition: color .2s ease-in-out;
+}
+
+.menu ul {
+    position: absolute;
+    top: 40px;
+    left: 0;
+ 
+    opacity: 0;
+    background: #1f2024;
+ 
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+ 
+    -webkit-transition: opacity .25s ease .1s;
+    -moz-transition: opacity .25s ease .1s;
+    -o-transition: opacity .25s ease .1s;
+    -ms-transition: opacity .25s ease .1s;
+    transition: opacity .25s ease .1s;
+}
+ 
+.menu li:hover > ul { opacity: 1; }
+ 
+.menu ul li {
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+ 
+    -webkit-transition: height .25s ease .1s;
+    -moz-transition: height .25s ease .1s;
+    -o-transition: height .25s ease .1s;
+    -ms-transition: height .25s ease .1s;
+    transition: height .25s ease .1s;
+}
+ 
+.menu li:hover > ul li {
+    height: 36px;
+    overflow: visible;
+    padding: 0;
+}
+
+ 
+.menu li:first-child a { border-left: none; }
+.menu li:last-child a{ border-right: none; }
+ 
+.menu li:hover > a { color: black; }
+
+*/
+
+
 #loadingDiv{
 display: none;
 
@@ -13,11 +111,14 @@ display: none;
 	padding-top: 3%;
 }
 
+#mainBanner{
+	display: none;
+}
 #renderHere{
 	display: block;
 }
 
-button {
+button, #submitFeedbackBtn {
     padding:12px;
     outline: none;
     border-radius: 20px;
@@ -39,14 +140,21 @@ button {
 	max-height: 70%;
 }
 
-#title, #mode, #displayMode, #modeBtns, #displaySecMode, #secondaryModeBtns, #cardNavigation, #bodyContent, #imageContent{
+.rightCol{
+	width:65%;
+	float:left;
+}
+
+#title, #mode, #displayMode, #modeBtns, 
+	#displaySecMode, #secondaryModeBtns, #cardNavigation, 
+	#bodyContent, #imageContent, #feedbackBtnDiv{
 	text-align: center;
 }
 
 .mode, .secondaryMode {
 	width: 80%;
 	padding: 2.5%;
-	margin: 5%;
+	margin: 2.5%;
 }
 
 .hide {
@@ -82,7 +190,7 @@ button {
 	width: 100%;
 
 }
-#backBtnDiv{
+.backBtnDiv{
 	width: 20%;
 	float: left;
 }
@@ -122,10 +230,20 @@ button {
 	width: 92px;
 }
 			
-#secondTemplateWrapper, #displayCardWrapper{
+#secondTemplateWrapper, #displayCardWrapper, #feedbackFormWrapper{
 	/*#secondTemplateWrapper{*/
 	opacity: 0;
 }
+
+#feedbackForm {
+	text-align: center;
+}
+
+#submitFeedbackBtn{
+	width: 80%;
+	margin-left: 10%
+}
+
 
 .invisible {
 	opacity: 0;
@@ -138,7 +256,7 @@ button {
 
 .visible {
 	opacity: 1 !important;
-	
+
 	-webkit-transition: opacity 0.25s;
 	-moz-transition: opacity 0.25s;
 	-o-transition: opacity 0.25s;
@@ -147,12 +265,13 @@ button {
 
 
 
+
 @media only screen and (max-width: 674px) {
 
 	.mode, .secondaryMode {
 		height: 13%;
 		width: 85%;
-		margin: 4%;
+		margin: 3%;
 	}
 
 	.backBtn {
@@ -160,12 +279,21 @@ button {
 		height: 50px;
 	}
 
-	#aboutBtn {
+	#aboutBtn, #feedbackBtn {
 		float: left;
-		margin-top: 13%;
-		height: 7%;
+		margin-top: 2.5%;
+		height: 5%;
 		width: 34%;
 		padding: 0px;
+	}
+
+	#aboutContent{
+		width: 80%;
+		margin-left: 2%;
+	}
+
+	.desktopText{
+		display: none !important;
 	}
 
 	#imageDisplayed{
@@ -177,13 +305,142 @@ button {
   		margin-bottom: 5%;
 	}
 
+	.rightCol{
+		float: none;
+	}
+
+	#footerBtnWrapper{
+		margin-left: 25%;
+		margin-top: 5%;
+	}
+
+	#submitFeedbackBtn{
+		width: 50%;
+		margin-left: 25%;
+	}
+
+
 }
 
-@media only screen and (min-width: 1125px) {
+@media only screen and (min-width: 675px) {
+
+	#modeBtns button, #secondaryModeBtns button {
+		width: 90% !important;
+		padding: 10% !important;
+	}
+
+	.mode, .secondaryMode {
+		width: auto;
+	}
+
+	#mainBanner{
+		display: block;
+	}
+	
+	.navWrapper{
+		width: 30%;
+		float:left;
+	}
+
+	#nestedContent{
+		margin-top: 1.5%;
+	}
 
 	#modeBtns{
+		float: left;
+	}
+	
+	.backBtnDiv{
+		width: 100%;
+	}
+	#modeBtns, #secondaryModeBtns, #feedbackBtnDiv {
+		/*clear: left;*/
+		margin-top: 1.5%;
+	}
+
+	.desktopText{
+		float: left;
+		margin: 1.5%;
+	}
+
+	#aboutBtn {
+		display: none;
+	}
+
+	#aboutContent {
+		margin-top: 365px;
+		margin-left: 1.5%;
+		display: block !important;
+		opacity: 1 !important;
+		width: 60%;
+	}
+
+	#displayMode{
+		margin-top: 4%;
+		margin-bottom: 4%;
+		clear: left;
+		float: left;
+	}
+
+	#transButton, #nextButton{
+		width: 25% !important;
+		padding: 2% !important;
+	}
+
+	#footerBtnWrapper{
+		/*margin-left: 25%;*/
+		margin-top: 5%;
+	}
+
+	#feedbackBtn{
+		margin-top: 125px;
+	}
+
+	#submitFeedbackBtn {
+		width: 20%;
+		margin-left: 40%;
+	}
+
+
+
+}
+
+
+@media only screen and (min-width: 1000px) {
+	h1{
+		font-size: 3em;
+	}
+
+	.navWrapper{
+		width: 15%;
+	}
+
+	.desktopText{
+		margin-top: 0%;
+	}
+
+	.rightCol{
+		margin-left: 3%;
+	}
+
+	#displayCardWrapper{
 		width: 70%;
-	  	padding-left: 15%;
+		float: left;
+	}
+
+	#bodyContent{
+		font-size: 3.5em;
+	}
+
+	#transButton, #nextButton{
+		width: 14% !important;
+		padding: 1.5% !important;
+		margin: 1%;
+	}
+
+	#submitFeedbackBtn {
+		width: 20%;
+		margin-left: 40%;
 	}
 
 }

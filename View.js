@@ -41,7 +41,8 @@ View = Backbone.View.extend({
 			compiledWrapperHTML = compiledWrapper({otherTemplates: compiledModeHTML});
 
 		// Jam the inner(Mode) into the outer(Wrapper)
-			$(compiledWrapperHTML).find('#otherTemplates').html(compiledModeHTML);
+		//Not actually doing anything?
+			//$(compiledWrapperHTML).find('#otherTemplates').html(compiledModeHTML);
 		
 		// Jam it all into the element
 			this.$el.html(compiledWrapperHTML);
@@ -64,10 +65,12 @@ View = Backbone.View.extend({
 			compiledModeHTML = compiledMode({mode: this.mode, secondaryMode: 'Image'});
 		
 		// Jam it all into the element
-			this.$nestedContent.html(compiledModeHTML);
+			this.$el.html(compiledModeHTML);
 	},
 
 	renderSecMode : function(i){
+
+		console.log("RenderSecMode Called");
 		// get the html from the script template
 		var secModeHTML = document.getElementById('secondaryModeTemplate').innerHTML,
 		
@@ -76,28 +79,66 @@ View = Backbone.View.extend({
 		
 		// build the html from the template, pass in necessary content
 			compiledSecModeHTML = compiledSecMode({mode: this.mode, secondaryMode: 'Image'});
-		
+			
 		// Jam it all into the element
-			this.$nestedContent.html(compiledSecModeHTML);
+			this.$el.html(compiledSecModeHTML);
 	},
 
 	renderCard : function(i){
-		// get the html from the script template
+		//Template 3.0
+		//get the outter html from the script template
 			displayCardHTML = document.getElementById('displayCardTemplate').innerHTML,
-		
-		// compile the third/inner template
-			compiledDispCard = _.template(displayCardHTML),
-		
+	 	
+	 	// compile the outter template
+	 		compiledDispCard = _.template(displayCardHTML),
+
+	 	//Template 3.5
+	 	//get the html from the inner script template and compile it
+	 		cardContentHTML = document.getElementById('cardContentTemplate').innerHTML,
+			compiledcardContent = _.template(cardContentHTML),
+
 		//Get current content to pass into the template
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
-			RenderImage = this.currentCollection.at(this.i).get("image"),
+			RenderImage = this.currentCollection.at(this.i).get("image");
+			console.log(RenderRomanji);
+			console.log(RenderImage);
+
+		// build the html from the template, pass in necessary content
+			compiledcardContentHTML = compiledcardContent({mode: this.mode, 
+				secondaryMode: this.secondaryMode, 
+				bodyContent: RenderRomanji, 
+				imageContent: RenderImage
+			}),
+
+			compiledDispCardHTML = compiledDispCard({otherTemplates: compiledcardContentHTML, 
+				mode: this.mode, 
+				secondaryMode: this.secondaryMode, 
+				bodyContent: RenderRomanji, 
+				imageContent: RenderImage,
+				cardContentTemplateHere: compiledcardContentHTML
+
+			}),
+
+		
+		// Jam it all into the element
+			this.$el.html(compiledDispCardHTML);
+	},
+
+	renderFeedbackForm : function(i){
+		// get the html from the script template
+			feedbackFormHTML = document.getElementById('feedbackFormTemplate').innerHTML,
+		
+		// compile the fourth/inner template
+			compiledForm = _.template(feedbackFormHTML),
 		
 		// build the html from the template, pass in necessary content
-			compiledDispCardHTML = compiledDispCard({mode: this.mode, secondaryMode: this.secondaryMode, bodyContent: RenderRomanji, imageContent: RenderImage});
+			compiledFormHTML = compiledForm({});
 	
 		// Jam it all into the element
-			this.$nestedContent.html(compiledDispCardHTML);
+			this.$nestedContent.html(compiledFormHTML);
 	},
+
+
 
 	//Bind events
 	events: {"click .mode": "updateMode",
@@ -107,6 +148,8 @@ View = Backbone.View.extend({
 			"click #aboutBtn": "renderAbout",
 			"click #secModeBackBtn": "backToMode",
 			"click #cardBackBtn": "backToSecMode",
+			"click #feedbackBtn": "renderFeedback",
+			"click #homeBtn": "backToMode"
 	},
 
 	//Re-render Mode via the Back Button
@@ -258,6 +301,15 @@ View = Backbone.View.extend({
 				$('#aboutContent').toggleClass('hide');
 			}, 100); 
 		}
+	},
+
+	renderFeedback : function(e){
+		this.renderFeedbackForm();
+
+		setTimeout(function(){
+			$("#feedbackFormWrapper").addClass('visible');
+		}, 100); 
+
 	}
 });
 
@@ -270,7 +322,7 @@ View = Backbone.View.extend({
 		katakana = new CardCollection([], {id: "Katakana"});
 		phrases = new CardCollection([], {id: "Phrases"});
 	}
-		$.when(createCollections()).done(console.log("Finished!"));
+		$.when(createCollections()).done();
 
 //Debugging ----------------------------------------------------------------
 	//Call with: viewCollection(this.currentColLen, this.currentCollection);
