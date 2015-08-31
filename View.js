@@ -124,6 +124,32 @@ View = Backbone.View.extend({
 			this.$el.html(compiledDispCardHTML);
 	},
 
+	renderCardContent : function(i){
+	 	//Template 3.5
+	 	//get the html from the inner script template and compile it
+	 		cardContentHTML = document.getElementById('cardContentTemplate').innerHTML;
+			console.log(cardContentHTML);
+			compiledcardContent = _.template(cardContentHTML);
+			console.log(compiledcardContent);
+
+		//Get current content to pass into the template
+			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
+			RenderImage = this.currentCollection.at(this.i).get("image");
+			console.log(RenderRomanji);
+			console.log(RenderImage);
+
+		// build the html from the template, pass in necessary content
+			compiledcardContentHTML = compiledcardContent({mode: this.mode, 
+				secondaryMode: this.secondaryMode, 
+				bodyContent: RenderRomanji, 
+				imageContent: RenderImage
+			});
+
+			console.log(compiledcardContentHTML);
+
+			$('#cardContent').html(compiledcardContentHTML);
+	},
+
 	renderFeedbackForm : function(i){
 		// get the html from the script template
 			feedbackFormHTML = document.getElementById('feedbackFormTemplate').innerHTML,
@@ -246,7 +272,7 @@ View = Backbone.View.extend({
 		}
 
 		//Render next card (must come before applying classes)
-		this.renderCard(this.i);
+		this.renderCardContent(this.i);
 
 		//Animation between modes
 		setTimeout(function(){
