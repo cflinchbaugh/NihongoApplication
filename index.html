@@ -143,7 +143,6 @@
 		 	</div>
 	 	</div>
 
-
 		<div id = "displayCardWrapper">
 			<div id = "cardContent">
 				<%=cardContentTemplateHere%>
@@ -155,18 +154,11 @@
 			</div>
 		</div>
 	</script>
-<!-- 			<div id = "imageContent" >
-				<img src="<%= imageContent %>" id = "imageDisplayed">
-			</div>
-
-			<div id = "bodyContent" class="invisible">
-				<%= bodyContent %>
-			</div> -->
 
 	<!-- 3.5: Card Content -->
-	<script type="text/tempalte" id="cardContentTemplate">
+	<script type="text/template" id="cardContentTemplate">
 
-		<div id = "imageContent" >
+		<div id = "imageContent" class="invisible" >
 			<img src="<%= imageContent %>" id = "imageDisplayed">
 		</div>
 

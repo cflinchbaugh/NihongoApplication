@@ -1,29 +1,14 @@
 View = Backbone.View.extend({
 
 	i:-1,
-	// mode: "Numbers",
-	// secondaryMode: "Image",
-	// currentCollection: numbers,
-	// currentColLen: numbers.length,
-
 
 	initialize: function(){
 		this.initialRender();
 		//this.createCollections();
 	},
 
-	// createCollections: function(){
-	// 	numbers = new CardCollection([], {id: "Numbers"});	
-	// 	hiragana = new CardCollection([], {id: "Hiragana"});
-	// 	katakana = new CardCollection([], {id: "Katakana"});
-	// 	phrases = new CardCollection([], {id: "Phrases"});
-	// 	console.log("CreateCollectionsCompleted");
-	// 	console.log(katakana);
-	// },
-
 	//Initial rendering only
 	initialRender: function(){
-		//this.currentCollection.shuffleCollection();
 
 	//Template0: WrapperTemplate
 		// get the html from the script template
@@ -47,7 +32,6 @@ View = Backbone.View.extend({
 		// Jam it all into the element
 			this.$el.html(compiledWrapperHTML);
 
-
 		// Set reused DOM references
 			this.$nestedContent = $('#nestedContent');
 			this.$aboutContent = $('#aboutContent');
@@ -69,8 +53,6 @@ View = Backbone.View.extend({
 	},
 
 	renderSecMode : function(i){
-
-		console.log("RenderSecMode Called");
 		// get the html from the script template
 		var secModeHTML = document.getElementById('secondaryModeTemplate').innerHTML,
 		
@@ -118,7 +100,6 @@ View = Backbone.View.extend({
 				cardContentTemplateHere: compiledcardContentHTML
 
 			}),
-
 		
 		// Jam it all into the element
 			this.$el.html(compiledDispCardHTML);
@@ -128,15 +109,11 @@ View = Backbone.View.extend({
 	 	//Template 3.5
 	 	//get the html from the inner script template and compile it
 	 		cardContentHTML = document.getElementById('cardContentTemplate').innerHTML;
-			console.log(cardContentHTML);
 			compiledcardContent = _.template(cardContentHTML);
-			console.log(compiledcardContent);
 
 		//Get current content to pass into the template
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
 			RenderImage = this.currentCollection.at(this.i).get("image");
-			console.log(RenderRomanji);
-			console.log(RenderImage);
 
 		// build the html from the template, pass in necessary content
 			compiledcardContentHTML = compiledcardContent({mode: this.mode, 
@@ -144,8 +121,6 @@ View = Backbone.View.extend({
 				bodyContent: RenderRomanji, 
 				imageContent: RenderImage
 			});
-
-			console.log(compiledcardContentHTML);
 
 			$('#cardContent').html(compiledcardContentHTML);
 	},
@@ -163,8 +138,6 @@ View = Backbone.View.extend({
 		// Jam it all into the element
 			this.$nestedContent.html(compiledFormHTML);
 	},
-
-
 
 	//Bind events
 	events: {"click .mode": "updateMode",
@@ -255,15 +228,19 @@ View = Backbone.View.extend({
 
 		//If Romanji, display text and hide image
 		if (this.secondaryMode === "Romanji"){
-			//console.log(this.$imageContent);
-			//this.$imageContent.addClass('invisible');
 			$('#imageContent').addClass('invisible');
 			$('#bodyContent').removeClass('invisible');
+		}
+
+		else {
+			$('#bodyContent').addClass('invisible');
+			$('#imageContent').removeClass('invisible');
 		}
 	},
 
 	//Next card	
 	nextCard : function(e){
+		//Increment count, reshuffle if end of the deck has been reached
 		this.i++;
 		if (this.i >= this.currentColLen){
 			console.log("------------Shuffle");
@@ -282,10 +259,12 @@ View = Backbone.View.extend({
 		setTimeout(function(){
 			$("#displayCardWrapper").addClass('visible');
 		}, 100); 
-
+		
 		//If Image, display image and hide text (until Translate is pressed)
 		if (this.secondaryMode === "Image"){
-			$('#bodyContent').removeClass('visible').addClass('invisible');
+			setTimeout(function(){
+				$('#imageContent').removeClass('invisible').addClass('visible');
+			}, 100); 
 		}
 
 		//Else, if Romanji, display text and hide image (until Translate is pressed)
