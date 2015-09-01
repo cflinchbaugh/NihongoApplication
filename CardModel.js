@@ -162,6 +162,7 @@
 					phrases.add(rom[deck][i]);
 				}	
 			}
+			$('.secondaryMode').addClass('Ready');
 		}
 
 	//Debugging only
