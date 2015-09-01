@@ -138,7 +138,7 @@ View = Backbone.View.extend({
 			compiledFormHTML = compiledForm({});
 	
 		// Jam it all into the element
-			this.$nestedContent.html(compiledFormHTML);
+			this.$el.html(compiledFormHTML);
 	},
 
 	//Bind events
