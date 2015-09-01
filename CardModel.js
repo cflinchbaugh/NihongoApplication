@@ -6,6 +6,7 @@
 		},
 
 		initialize: function(){
+
 		}
 	});
 
@@ -23,22 +24,96 @@
 						
 				// returning this ajax call makes a "Promise";
 				// if multiple calls were made, set the ajax requests to variables and work with them instead of a direct return		
+				// return $.ajax({
+				// 	//Pull data from XC, pass in "options.id" to grab the correct XC collection per Backbone Collection
+				// 	url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + options.id + "?format=JSONP&callback=?",
+				// 	dataType: "jsonp"
+				// })
+				// 	.success(function(response){
+				// 		console.log("options.id: " + options.id);
+				// 		//Each time a new collection is made, create all the cards by looping over the XC content and pull the arguments
+					
+				// 		console.log(response["CONTENTS"]);
+
+				// 		// for (i = 0; i < response["CONTENTS"].length; i++){
+				// 		// 	createCards(options.id, i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
+				// 		// }
+
+				// 		//After all the cards are created, put them into a single collection as determined by their options.id value
+				// 		populateCollection(options.id);
+				// 		console.log("Finished");
+				// 	});
+			},
+
+			getHiragana: function(){
 				return $.ajax({
 					//Pull data from XC, pass in "options.id" to grab the correct XC collection per Backbone Collection
-					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + options.id + "?format=JSONP&callback=?",
+					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + "Hiragana" + "?format=JSONP&callback=?",
 					dataType: "jsonp"
 				})
 					.success(function(response){
-						//Each time a new collection is made, create all the cards by looping over the XC content and pull the arguments
 						for (i = 0; i < response["CONTENTS"].length; i++){
-							createCards(options.id, i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
+						 	createCards("Hiragana", i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
 						}
 
 						//After all the cards are created, put them into a single collection as determined by their options.id value
-						populateCollection(options.id);
-						console.log("Finished");
+						populateCollection("Hiragana");
+						console.log("Get Hiragana Finished");
 					});
 			},
+
+			getKatakana: function(){
+				return $.ajax({
+					//Pull data from XC, pass in "options.id" to grab the correct XC collection per Backbone Collection
+					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + "Katakana" + "?format=JSONP&callback=?",
+					dataType: "jsonp"
+				})
+					.success(function(response){
+						for (i = 0; i < response["CONTENTS"].length; i++){
+						 	createCards("Katakana", i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
+						}
+
+						//After all the cards are created, put them into a single collection as determined by their options.id value
+						populateCollection("Katakana");
+						console.log("Get Katakana Finished");
+					});
+			},
+
+			getNumbers: function(){
+				return $.ajax({
+					//Pull data from XC, pass in "options.id" to grab the correct XC collection per Backbone Collection
+					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + "Numbers" + "?format=JSONP&callback=?",
+					dataType: "jsonp"
+				})
+					.success(function(response){
+						for (i = 0; i < response["CONTENTS"].length; i++){
+						 	createCards("Numbers", i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
+						}
+
+						//After all the cards are created, put them into a single collection as determined by their options.id value
+						populateCollection("Numbers");
+						console.log("Get Numbers Finished");
+					});
+			},
+
+			getPhrases: function(){
+				return $.ajax({
+					//Pull data from XC, pass in "options.id" to grab the correct XC collection per Backbone Collection
+					url: "http://www.cflinchbaugh-trinity.com/Nihongo/Nihongo" + "Phrases" + "?format=JSONP&callback=?",
+					dataType: "jsonp"
+				})
+					.success(function(response){
+						for (i = 0; i < response["CONTENTS"].length; i++){
+						 	createCards("Phrases", i, response["CONTENTS"][i]["romanji"]["VALUE"], response["CONTENTS"][i]["image"]["URL"]);
+						}
+
+						//After all the cards are created, put them into a single collection as determined by their options.id value
+						populateCollection("Phrases");
+						console.log("Get Phrases Finished");
+					});
+			},
+
+
 
 			shuffleCollection: function(){
 				this.reset(this.shuffle(), {silent:true});

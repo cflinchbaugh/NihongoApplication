@@ -1,6 +1,10 @@
 View = Backbone.View.extend({
 
 	i:-1,
+	numbersLoaded: false,
+	hiraganaLoaded: false,
+	katakanaLoaded: false,
+	phrasesLoaded: false,
 
 	initialize: function(){
 		this.initialRender();
@@ -82,8 +86,6 @@ View = Backbone.View.extend({
 		//Get current content to pass into the template
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
 			RenderImage = this.currentCollection.at(this.i).get("image");
-			console.log(RenderRomanji);
-			console.log(RenderImage);
 
 		// build the html from the template, pass in necessary content
 			compiledcardContentHTML = compiledcardContent({mode: this.mode, 
@@ -179,15 +181,35 @@ View = Backbone.View.extend({
 		switch(this.mode){
 			case "Numbers":
 				this.currentCollection = numbers;
+				console.log("numbersLoaded: " + this.numbersLoaded);
+				if (this.numbersLoaded === false){
+					this.currentCollection.getNumbers();
+					this.numbersLoaded = true;
+				}
 				break;
 			case "Hiragana":
 				this.currentCollection = hiragana;
+				console.log("hiraganaLoaded: " + this.hiraganaLoaded);
+				if (this.hiraganaLoaded === false){
+					this.currentCollection.getHiragana();
+					this.hiraganaLoaded = true;
+				}
 				break;
 			case "Katakana":
 				this.currentCollection = katakana;
+				console.log("katakanaLoaded: " + this.katakanaLoaded);
+				if (this.katakanaLoaded === false){
+					this.currentCollection.getKatakana();
+					this.katakanaLoaded = true;
+				}
 				break;
 			case "Phrases":
 				this.currentCollection = phrases;
+				console.log("phrasesLoaded: " + this.phrasesLoaded);
+				if (this.phrasesLoaded === false){
+					this.currentCollection.getPhrases();
+					this.phrasesLoaded = true;
+				}
 				break;
 		}
 		
@@ -242,7 +264,8 @@ View = Backbone.View.extend({
 	nextCard : function(e){
 		//Increment count, reshuffle if end of the deck has been reached
 		this.i++;
-		if (this.i >= this.currentColLen){
+
+		if (this.i >= this.currentCollection.length){
 			console.log("------------Shuffle");
 		 	this.currentCollection.shuffleCollection();
 		 	this.i = 0;
@@ -339,6 +362,5 @@ View = Backbone.View.extend({
 			console.log(curCol.at(a).get("romanji"));
 		}
 	}
-
 
 
