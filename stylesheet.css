@@ -17,6 +17,29 @@
 		-transition: opacity 0.25s;
 	}
 
+	.loading {
+		opacity: 0.5;		
+	}
+
+
+button {
+	background-color: #C8C4C4;
+	-webkit-transition:background 1s;
+	-moz-transition:background 1s;
+	-o-transition:background 1s;
+	transition:background 1s;
+}
+
+button:hover {
+	background-color: red;
+	cursor: pointer;
+	-webkit-transition: background-color 1s ease-out;
+	-moz-transition: background-color 1s ease-out;
+	-o-transition: background-color 1s ease-out;
+	transition: background-color 1s ease-out;
+}
+
+
 	#title, #mode, #displayMode, #modeBtns, 
 		#displaySecMode, #secondaryModeBtns, #cardNavigation, 
 		#bodyContent, #imageContent, #feedbackBtnDiv{

@@ -56,6 +56,67 @@ View = Backbone.View.extend({
 			this.$el.html(compiledModeHTML);
 	},
 
+	//Check to see if the deck was previously loaded,
+	//if so, immediately transition to visible
+	styleLoading : function(mode){
+		
+		switch(mode){
+			case "Hiragana":
+				if (hLoaded === true){
+					$('.secondaryMode').toggleClass('visible loading');
+				}
+				else {
+					console.log("Hiragana Not Loaded");
+				}
+				break;
+
+			case "Katakana":
+				if (kLoaded === true){
+					$('.secondaryMode').toggleClass('visible loading');
+				}
+				else {
+					console.log("Katakana Not Loaded");
+				}
+				break;
+
+			case "Numbers":
+				if (nLoaded === true){
+					$('.secondaryMode').toggleClass('visible loading');
+				}
+				else {
+					console.log("Numbers Not Loaded");
+				}
+
+				break;
+
+			case "Phrases":
+				if (pLoaded === true){
+					$('.secondaryMode').toggleClass('visible loading');
+				}
+				else {
+					console.log("Phrases Not Loaded");
+				}
+
+				break;
+
+			//case "Hiragana":
+
+		}
+
+		// switch(this.mode){
+		// 	case "Numbers":
+		// 		this.currentCollection = numbers;
+		// 		console.log("numbersLoaded: " + this.numbersLoaded);
+
+		// 		if (this.numbersLoaded === false){
+		// 			this.currentCollection.getNumbers();
+		// 			this.numbersLoaded = true;
+		// 		}
+		// 		break;
+
+
+	},
+	
 	renderSecMode : function(i){
 		// get the html from the script template
 		var secModeHTML = document.getElementById('secondaryModeTemplate').innerHTML,
@@ -68,7 +129,11 @@ View = Backbone.View.extend({
 			
 		// Jam it all into the element
 			this.$el.html(compiledSecModeHTML);
+
+		//Update CSS
+		this.styleLoading(this.mode);
 	},
+
 
 	renderCard : function(i){
 		//Template 3.0
@@ -182,6 +247,7 @@ View = Backbone.View.extend({
 			case "Numbers":
 				this.currentCollection = numbers;
 				console.log("numbersLoaded: " + this.numbersLoaded);
+
 				if (this.numbersLoaded === false){
 					this.currentCollection.getNumbers();
 					this.numbersLoaded = true;
@@ -197,7 +263,6 @@ View = Backbone.View.extend({
 				break;
 			case "Katakana":
 				this.currentCollection = katakana;
-				console.log("katakanaLoaded: " + this.katakanaLoaded);
 				if (this.katakanaLoaded === false){
 					this.currentCollection.getKatakana();
 					this.katakanaLoaded = true;
@@ -212,7 +277,7 @@ View = Backbone.View.extend({
 				}
 				break;
 		}
-		
+
 		this.currentColLen = this.currentCollection.length;
 
 		//Shuffle each time a new mode is selected

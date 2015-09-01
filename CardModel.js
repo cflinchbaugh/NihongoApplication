@@ -2,7 +2,8 @@
 	var Card = Backbone.Model.extend({
 		defaults: {
 	    	romanji: 'Default Romanji',
-	    	image: ''
+	    	image: '',
+
 		},
 
 		initialize: function(){
@@ -15,6 +16,12 @@
 			rom["Hiragana"] = [];
 			rom["Katakana"] = [];
 			rom["Phrases"] = [];
+				
+			hLoaded = false;		
+			kLoaded = false;
+			nLoaded = false;
+			pLoaded = false;
+			
 			
 		//Declare Collection
 		CardCollection = Backbone.Collection.extend({
@@ -58,7 +65,8 @@
 
 						//After all the cards are created, put them into a single collection as determined by their options.id value
 						populateCollection("Hiragana");
-						console.log("Get Hiragana Finished");
+						renderSecondaryModeBtns();
+						hLoaded = true;
 					});
 			},
 
@@ -75,7 +83,8 @@
 
 						//After all the cards are created, put them into a single collection as determined by their options.id value
 						populateCollection("Katakana");
-						console.log("Get Katakana Finished");
+						renderSecondaryModeBtns();
+						kLoaded = true;
 					});
 			},
 
@@ -92,7 +101,8 @@
 
 						//After all the cards are created, put them into a single collection as determined by their options.id value
 						populateCollection("Numbers");
-						console.log("Get Numbers Finished");
+						renderSecondaryModeBtns();
+						nLoaded = true;
 					});
 			},
 
@@ -109,7 +119,8 @@
 
 						//After all the cards are created, put them into a single collection as determined by their options.id value
 						populateCollection("Phrases");
-						console.log("Get Phrases Finished");
+						renderSecondaryModeBtns();
+						pLoaded = true;
 					});
 			},
 
@@ -138,7 +149,6 @@
 		// $('#renderHere').css('display', 'block');
 
 		function populateCollection(deck){
-			console.log(rom[deck].length);
 			if (deck === "Numbers"){
 				for (i = 0; i < rom[deck].length; i++){
 					numbers.add(rom[deck][i]);
@@ -162,9 +172,20 @@
 					phrases.add(rom[deck][i]);
 				}	
 			}
-			$('.secondaryMode').addClass('Ready');
+
 		}
 
+	//Display buttons when loaded
+	//NOTE: This is typical "View" behavior, but it is located here to synchronously
+	//reflect when the loading completes
+	function loading(){
+		$('.secondaryMode').addClass('loading');
+	}
+
+	function renderSecondaryModeBtns() {
+		$('.secondaryMode').toggleClass('visible loading');
+	}
+	
 	//Debugging only
 	function viewCollectionContent(string, collection){
 		console.log(string + " " + JSON.stringify(collection.toJSON()));
