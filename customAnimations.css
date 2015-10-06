@@ -1,0 +1,137 @@
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+
+/*Appear: Item expands from 0,0 to 1,1
+  Looks like the keyframes are being ignored, the actual changing seems to be from the removal of the disappear class,
+  but the transition-delay is being upheld so the effect is as desired.
+
+  TODO: Speak with Ian about a better way to implement
+  
+*/
+@keyframes appear {
+  0% {    transform: scaleX(0.0), scaleY(0.0);  }
+  100% {    transform: scaleX(2.0), scaleY(2.0);  } 
+}
+
+  .appear { 
+    transition: all 1s ease-in-out;
+    animation-name: appear;
+    animation-duration: 2s;
+    transition-delay: 0.0s;
+  }
+
+  .appear1 { 
+    transition: all 1s ease-in-out;
+    animation-name: appear;
+    animation-duration: 2s;
+    transition-delay: 0.2s;
+  }
+
+  .appear2 { 
+    transition: all 1s ease-in-out;
+    animation-name: appear;
+    animation-duration: 2s;
+    transition-delay: 0.4s;
+  }
+
+  .appear3 { 
+    transition: all 1s ease-in-out;
+    animation-name: appear;
+    animation-duration: 2s;
+    transition-delay: 0.6s;
+  }
+
+  .appear4 { 
+    transition: all 1s ease-in-out;
+    animation-name: appear;
+    animation-duration: 2s;
+    transition-delay: 0.8s;
+  }
+
+  .appear5 { 
+    transition: all 1s ease-in-out;
+    animation-name: appear;
+    animation-duration: 2s;
+    transition-delay: 1.0s;
+  }
+
+
+.disappear { 
+  transition: all .2s ease-in-out;
+  transform: scale(0,0) !important;
+}
+
+/*StretchRight*/
+
+.unstretched{
+  transform: scale(0.5, 0.5) !important;
+}
+
+.stretchRight{
+  animation-name: stretchRight;
+  -webkit-animation-name: stretchRight;
+  animation-duration: 1.5s;
+  -webkit-animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  -webkit-animation-timing-function: ease-out;
+  transform-origin: 0% 0%;
+  -ms-transform-origin: 0% 0%;
+  -webkit-transform-origin: 0% 0%;
+}
+
+@keyframes stretchRight {
+  0% {    transform: scaleX(0.5);  }
+  95% {    transform: scaleX(0.97);  }       
+  97% {    transform: scaleX(1.01);  }       
+  100% {    transform: scaleX(1.0);  } 
+  95% {    transform: scaleX(0.97);  }       
+  97% {    transform: scaleX(1.01);  }       
+  100% {    transform: scaleX(1.0);  } 
+
+}
+
+/*FadeInUp: subtle animation*/
+    @-webkit-keyframes fadeInUp {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 25%, 0);
+        transform: translate3d(0, 25%, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 25%, 0);
+        transform: translate3d(0, 25%, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+
+    .fadeInUp {
+      -webkit-animation-name: fadeInUp;
+      animation-name: fadeInUp;
+    }
+
+    .stretchHeight {
+      max-height: 300px !important;
+      -webkit-transition: max-height 2s;
+      transition: max-height 2s; 
+    }

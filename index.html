@@ -5,14 +5,16 @@
 	<script src="underscore-min.js"></script>
 	<script src="backbone-min.js"></script>
     <link rel='stylesheet' type='text/css' href='stylesheet.css'/>
+	<link rel="stylesheet" type='text/css' href="customAnimations.css">
+	<link rel="stylesheet" type='text/css' href="customStylesheet.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 <body id = "contentWrapper">
-	<div id = "logo">
+<!-- 	<div id = "logo">
 		<img src="../NihongoApplication/Images/Logo.png">
-	</div>
+	</div> -->
 
 	<div id = "title">
 		<h1>Nihongo</h1>
@@ -21,6 +23,7 @@
 	<div id="renderHere">
 		<!-- Templates will be loaded into the renderHere div -->
 	</div>
+
 
 <!-- TEMPLATES -->	
 	<!-- 0: Wrapper / About Menu -->
@@ -34,26 +37,110 @@
 
 	<!-- 1: Mode Menu -->
 	<script type="text/template" id="modeTemplate">
+
+		<div id = "welcome" class = 'animated fadeInUp depth3'>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis sapien lectus. Sed sit amet nibh sagittis, accumsan nisi malesuada, congue velit. Aliquam eget ex imperdiet, vulputate dolor sed, ornare est. Nunc nec pulvinar odio. Duis tortor dolor, faucibus ut dolor id, molestie ornare tortor.<br/>
+			<button type = 'button' id = 'hajimeBtn'>Hajime</button>
+		</div>
+		
 		<div class = "navWrapper">
-			<div id = "modeBtns">
-				<button type = 'button' class = 'mode' id = 'Hiragana'>Hiragana</button>
-				<button type = 'button' class = 'mode' id = 'Katakana'>Katakana</button>
-				<button type = 'button' class = 'mode' id = 'Numbers'>Numbers</button>
-				<button type = 'button' class = 'mode' id = 'Phrases'>Phrases</button>
+
+			
+			<div id = "modeDivs">
+
+					<div class = 'firstMode mode depth3 disappear' id = 'Hiragana'>
+						<div id = "secondaryModeBtns">
+							<div class = 'label'>
+								Hiragana
+							</div>
+							<div id = '' class = 'SecondDiv'>
+								<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+								<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+							</div>
+			
+							<div class = 'changeModes slidingSecBtns invisible'>
+								<button type='button' id='hirImage'>Image</button>
+								<button type='button' id='hirRomanji'>Romanji</button>
+							</div>
+						</div>
+					</div>
+
+					<div class = 'firstMode mode depth3 disappear' id = 'Katakana'>
+						<div id = "secondaryModeBtns">
+							<div class = 'label'>
+								Katakana
+							</div>
+							<div id = '' class = 'SecondDiv'>
+								<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+								<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+							</div>
+
+							<div class = 'changeModes slidingSecBtns invisible'>
+								<button type='button' id='katImage'>Image</button>
+								<button type='button' id='katRomanji'>Romanji</button>
+							</div>
+
+						</div>
+					</div>
+				
+				
+					<div class = 'firstMode mode depth3 disappear' id = 'Numbers'>
+						<div id = "secondaryModeBtns">
+							<div class = 'label'>
+								Numbers
+							</div>
+
+							<div id = '' class = 'SecondDiv'>
+								<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+								<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+							</div>
+
+							<div class = 'changeModes slidingSecBtns invisible'>
+								<button type='button' id='numImage'>Image</button>
+								<button type='button' id='numRomanji'>Romanji</button>
+							</div>
+
+						</div>
+					</div>
+
+					<div class = 'firstMode mode depth3 disappear' id = 'Phrases'>
+						<div id = "secondaryModeBtns">
+							<div class = 'label'>
+								Phrases
+							</div>
+							<div id = '' class = 'SecondDiv'>
+								<button type = 'button' class = 'secondaryMode' id = 'Image'>Image</button>
+								<button type = 'button' class = 'secondaryMode' id = 'Romanji'>Romanji</button>
+							</div>
+
+							<div class = 'changeModes slidingSecBtns invisible'>
+								<button type='button' id='phrasesImage'>Image</button>
+								<button type='button' id='phrasesRomanji'>Romanji</button>
+							</div>
+
+						</div>
+					</div>
+				
+			</div>
+
+			<div id = 'cardContentHere' class = 'invisible'>
 			</div>
 			
 			<div id = 'footerBtnWrapper'>
 				<div id = "feedbackBtnDiv">
-					<button type = 'button' class = 'feedbackBtn' id = 'feedbackBtn'>Feedback</button>
+					<button type = 'button' class = 'feedbackBtn disappear' id = 'feedbackBtn'>
+						Feedback
+					</button>
 				</div>
 
-				<div id = "aboutBtnDiv">
-					<button type = 'button' class = 'about' id = 'aboutBtn'>About</button>
-				</div>
 			</div>
 		</div>
+				<div id = "aboutBtnDiv">
+					<button type = 'button' class = 'about disappear' id = 'aboutBtn'>About</button>
+				</div>
 
 		<div class = "rightCol">
+		<!--
 			<div class = "desktopText">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet mi ac ipsum pellentesque, in ullamcorper erat porttitor. Praesent condimentum sem arcu, vitae vestibulum nulla facilisis eget. Integer sit amet dignissim felis, ut ullamcorper purus. Phasellus cursus sapien posuere elit dignissim, gravida ultricies ligula laoreet. 
 				</p>
@@ -62,6 +149,15 @@
 				<p>Vestibulum pulvinar lectus nec sem mattis, eu pharetra orci luctus. Maecenas semper leo diam, nec condimentum ex cursus at. Aliquam sodales laoreet lorem, eget iaculis magna consequat in. Nullam consequat vestibulum sapien at ultricies. Nunc gravida urna quis magna convallis, in facilisis mauris malesuada. 
 				</p>
 			</div>
+		-->
+			
+
+			<div id="hirMenu1" class="">
+				Hiragana
+			</div>
+
+
+
 
 			<div id="aboutContent" class = "invisible hide">
 				By Chris Flinchbaugh<br/>
@@ -108,25 +204,27 @@
 
 	<!-- 3: Display Card Menu -->
 	<script type="text/template" id="displayCardTemplate">
-		<div class = "navWrapper">
-			<div class = "backBtnDiv">
-				<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
-			</div>
+		<div id = "displayCardTemplate" class = 'invisible'>
+			<div class = "navWrapper">
+				<!--<div class = "backBtnDiv">
+					<button type = 'button' class = 'backBtn' id = 'cardBackBtn'>Back</button>
+				</div> -->
 
-		 	<div id = "displayMode">
-		 		Mode: <br/>
-		 		<%= mode %> - <%= secondaryMode %>
+			 	<div id = "displayMode">
+			 		Mode: <br/>
+			 		<%= mode %> - <%= secondaryMode %>
+			 	</div>
 		 	</div>
-	 	</div>
 
-		<div id = "displayCardWrapper">
-			<div id = "cardContent">
-				<%=cardContentTemplateHere%>
-			</div>
-		
-			<div id = 'cardNavigation'>
-				<button type = 'button' id='transButton'>Translation</button>
-				<button type='button' id='nextButton'>Next</button>
+			<div id = "displayCardWrapper">
+				<div id = "cardContent">
+					<%=cardContentTemplateHere%>
+				</div>
+			
+				<div id = 'cardNavigation'>
+					<button type = 'button' id='transButton'>Translation</button>
+					<button type='button' id='nextButton'>Next</button>
+				</div>
 			</div>
 		</div>
 	</script>
@@ -135,7 +233,7 @@
 	<script type="text/template" id="cardContentTemplate">
 
 		<div id = "imageContent" class="invisible" >
-			<img src="<%= imageContent %>" id = "imageDisplayed">
+			<img src="<%= imageContent %>" id = "imageDisplayed" class = "depth2">
 		</div>
 
 		<div id = "bodyContent" class="invisible">

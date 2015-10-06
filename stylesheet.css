@@ -1,4 +1,49 @@
-/*Multi-Use*/
+
+
+/*Testing----------------------------------------------------*/
+#hirMenu1 {
+	height: 50px;
+	width: 15%;
+	background-color: red;
+	text-align: center;
+	padding-top: 20px;
+	transform: scale(0,0);
+}
+
+
+
+
+/*----------------------------------------------------------*/
+
+
+
+/*Depth/Box-Shadow/Drop-Shadow of varying depths*/
+	.depth0 {
+	    border: 1px solid #eee;
+	}
+	.depth1 {
+	    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 
+	    			0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	}
+	.depth2 {
+	    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 
+	    			0 8px 17px 0 rgba(0, 0, 0, 0.2);
+	}
+	.depth3 {
+	    box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.19), 
+	    			0 12px 15px 0 rgba(0, 0, 0, 0.24);
+	}
+	.depth4 {
+	    box-shadow: 0 25px 55px 0 rgba(0, 0, 0, 0.21), 
+		   			0 16px 28px 0 rgba(0, 0, 0, 0.22);
+	}
+	.depth5 {
+	    box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22), 
+	    			0 27px 24px 0 rgba(0, 0, 0, 0.2);
+	}
+
+
+/*Fade out over time, no motion*/
 	.invisible {
 		opacity: 0;
 
@@ -8,6 +53,7 @@
 		-transition: opacity 0.25s;
 	}
 
+/*Fade in over time, no motion*/
 	.visible {
 		opacity: 1 !important;
 
@@ -17,367 +63,11 @@
 		-transition: opacity 0.25s;
 	}
 
-	.loading {
-		opacity: 0.5;		
-	}
-
-
-button {
-	background-color: #C8C4C4;
-	-webkit-transition:background 1s;
-	-moz-transition:background 1s;
-	-o-transition:background 1s;
-	transition:background 1s;
-}
-
-button:hover {
-	background-color: red;
-	cursor: pointer;
-	-webkit-transition: background-color 1s ease-out;
-	-moz-transition: background-color 1s ease-out;
-	-o-transition: background-color 1s ease-out;
-	transition: background-color 1s ease-out;
-}
-
-
-	#title, #mode, #displayMode, #modeBtns, 
-		#displaySecMode, #secondaryModeBtns, #cardNavigation, 
-		#bodyContent, #imageContent, #feedbackBtnDiv{
-		text-align: center;
-	}
-
-	.hide {
-		display: none !important;
-	}
-
-	#displayMode{
-		width: 100%;
-		margin-top: -4%;
-	  	margin-bottom: 4%;	
-	  	clear: left;
-	}
-
-/*HOME*/
-	#loadingDiv{
-	display: none;
-
-		text-align: center;
-		border: solid;
-		border-radius: 13px;
-		width: 125%;
-		height: 5%;
-		background-color: grey;
-		opacity: 30;
-		overflow: hidden;
-		margin-left: -13%;
-		padding-top: 3%;
-	}
-
-	#mainBanner{
-		display: none;
-	}
-	#renderHere{
-		display: block;
-	}
-
-	button, #submitFeedbackBtn {
-	    padding:12px;
-	    outline: none;
-	    border-radius: 20px;
-	    -moz-border-radius: 20px;
-	    -webkit-border-radius: 20px;
-	}
-
-
-	#wrapperTemplate{
-		overflow: hidden;
-	}
-
-	#contentWrapper{
-		padding: 15px;
-	}
-
-	#nestedContent{
-		min-height: 60%;
-		max-height: 70%;
-	}
-
-	.rightCol{
-		width:65%;
-		float:left;
-	}
-
-	.mode, .secondaryMode {
-		width: 80%;
-		padding: 2.5%;
-		margin: 2.5%;
-	}
-
-
-	#aboutContent{
-		display: block;
-		position: fixed;
-		width: 75%;
-		margin-top: -400px;
-		padding: 10px;
-		border: solid;
-		border-radius: 10px;
-		border-color: deeppink;
-		background-color: crimson;
-		color: white;
-		text-shadow: 2px 2px black;
-		text-align: center;
-	}
-
-
-	#displaySecMode{ 
-	  	padding-top: 12px;
-	}
-
-	#secondaryModeBtns, #cardNavigation{
-		/*padding-top: 15px;*/
-	}
-
-/*CardNavigation*/
-
-	#cardNavigation{
-		float: left;
-		width: 100%;
-
-	}
-	.backBtnDiv{
-		width: 20%;
-		float: left;
-	}
-
-	.backBtn{
-		padding: 10px;
-		display: block;
-	}
-
-	#bodyContent{
-		padding: 10px;
-	  	font-weight: bold;
-	  	font-size: xx-large;
-	}
-				
-	#imageContent{  
-		padding-top: 10px;
-		clear: left;
-	}	
-
-	#imageDisplayed{
-		width:auto;
-		height: auto;
-	}
-
-	#nextButton{
-		width: 92px;
-	}
-				
-	#secondTemplateWrapper, #displayCardWrapper, #feedbackFormWrapper{
-		/*#secondTemplateWrapper{*/
-		opacity: 0;
-	}
-
-/*Feedback*/
-	#feedbackForm {
-		text-align: center;
-	}
-
-	#submitFeedbackBtn{
-		width: 80%;
-		margin-left: 10%
-	}
-
-
-
-@media only screen and (max-width: 674px) {
-/*Multi-Use*/
-	.mode, .secondaryMode {
-		height: 13%;
-		width: 85%;
-		margin: 3%;
-	}
-
-	.backBtn {
-		width: 80px;
-		height: 50px;
-	}
-
-/*Home*/
-	#aboutBtn, #feedbackBtn {
-		float: left;
-		margin-top: 2.5%;
-		height: 5%;
-		width: 34%;
-		padding: 0px;
-	}
-
-	#aboutContent{
-		width: 80%;
-		margin-left: 2%;
-	}
-
-	.desktopText{
-		display: none !important;
-	}
-
-	.rightCol{
-		float: none;
-	}
-	
-	#footerBtnWrapper{
-		margin-left: 25%;
-		margin-top: 5%;
-	}
-
-/*CardNavigation*/	
-	#imageDisplayed{
-		width:auto;
-	}
-
-	#transButton, #nextButton {
-		width: 50%;
-  		margin-bottom: 5%;
-	}
-
-
-/*Feedback*/
-	#submitFeedbackBtn{
-		width: 50%;
-		margin-left: 25%;
-	}
-
-
-}
-
-@media only screen and (min-width: 675px) {
-
-/*Multi-Use*/
-	#modeBtns button, #secondaryModeBtns button {
-		width: 90% !important;
-		padding: 10% !important;
-	}
-
-	.mode, .secondaryMode {
-		width: auto;
-	}
-
-	.navWrapper{
-		width: 30%;
-		float:left;
-	}
-
-	.backBtnDiv{
-		width: 100%;
-	}
-
-	#modeBtns, #secondaryModeBtns, #feedbackBtnDiv {
-		/*clear: left;*/
-		margin-top: 1.5%;
-	}
-
-	#displayMode{
-		margin-top: 4%;
-		margin-bottom: 4%;
-		clear: left;
-		float: left;
-	}
-	
-	#footerBtnWrapper{
-		/*margin-left: 25%;*/
-		margin-top: 5%;
-	}
-
-/*Home*/
-	#mainBanner{
-		display: block;
-	}
-	
-	#nestedContent{
-		margin-top: 1.5%;
-	}
-
-	#modeBtns{
-		float: left;
-	}
-	
-	.desktopText{
-		float: left;
-		margin: 1.5%;
-	}
-
-	#aboutBtn {
-		display: none;
-	}
-
-/*AboutContent*/
-	#aboutContent {
-		margin-top: 365px;
-		margin-left: 1.5%;
-		display: block !important;
+	.visibleDelayed {
 		opacity: 1 !important;
-		width: 60%;
+
+		-webkit-transition: opacity 1.00s;
+		-moz-transition: opacity 1.00s;
+		-o-transition: opacity 1.00s;
+		-transition: opacity 1.00s;
 	}
-
-/*CardNavigation*/
-	#transButton, #nextButton{
-		width: 25% !important;
-		padding: 2% !important;
-	}
-
-/*Feedback*/
-	#feedbackBtn{
-		margin-top: 125px;
-	}
-
-	#submitFeedbackBtn {
-		width: 20%;
-		margin-left: 40%;
-	}
-}
-
-
-@media only screen and (min-width: 1000px) {
-/*Multi-Use*/
-	h1{
-		font-size: 3em;
-	}
-
-	.navWrapper{
-		width: 15%;
-	}
-
-	.rightCol{
-		margin-left: 3%;
-	}
-
-	#displayCardWrapper{
-		width: 70%;
-		float: left;
-	}
-
-/*Home*/
-	.desktopText{
-		margin-top: 0%;
-	}
-
-	#bodyContent{
-		font-size: 3.5em;
-	}
-
-/*CardNavigation*/
-	#transButton, #nextButton{
-		width: 14% !important;
-		padding: 1.5% !important;
-		margin: 1%;
-	}
-
-/*Feedback*/
-	#submitFeedbackBtn {
-		width: 20%;
-		margin-left: 40%;
-	}
-
-}

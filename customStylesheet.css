@@ -1,0 +1,494 @@
+#testDiv {
+    width: 350px;
+    height: 350px;
+    border-radius: 5px;
+    box-shadow: 0px 12px 28px gray;
+    transform: scale(0.5,0.5);
+        -ms-transform: scale(0.5,0.5); /* IE 9 */
+    -webkit-transform: scale(0.5,0.5); /* Safari */
+}
+
+
+.loading {
+		opacity: 0.5;		
+	}
+
+	button {
+		background-color: #C8C4C4;
+		-webkit-transition:background 1s;
+		-moz-transition:background 1s;
+		-o-transition:background 1s;
+		transition:background 1s;
+	}
+
+	button:hover {
+		background-color: red;
+		cursor: pointer;
+		-webkit-transition: background-color 1s ease-out;
+		-moz-transition: background-color 1s ease-out;
+		-o-transition: background-color 1s ease-out;
+		transition: background-color 1s ease-out;
+	}
+
+	#title, #mode, #displayMode, #modeBtns, 
+		#displaySecMode, #secondaryModeBtns, #cardNavigation, 
+		#bodyContent, #imageContent, #feedbackBtnDiv{
+		text-align: center;
+	}
+
+	.hide {
+		display: none !important;
+	}
+
+	#displayMode{
+		width: 100%;
+		margin-top: -4%;
+	  	margin-bottom: 4%;	
+	  	clear: left;
+	}
+
+/*HOME*/
+
+	#welcome{
+		width: 60%;
+		position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+	    padding: 1em;
+	    background-color: aliceblue;
+	    transform: scale(1,1);
+	}
+
+	#hajimeBtn{
+		margin-left: auto;
+    	margin-right: auto;
+    	display: block;
+	}
+
+	#loadingDiv{
+	display: none;
+
+		text-align: center;
+		border: solid;
+		border-radius: 13px;
+		width: 125%;
+		height: 5%;
+		background-color: grey;
+		opacity: 30;
+		overflow: hidden;
+		margin-left: -13%;
+		padding-top: 3%;
+	}
+
+	#mainBanner{
+		display: none;
+	}
+	#renderHere{
+		display: block;
+	}
+
+	button, #submitFeedbackBtn {
+	    padding:12px;
+	    outline: none;
+	    border-radius: 20px;
+	    -moz-border-radius: 20px;
+	    -webkit-border-radius: 20px;
+	}
+
+
+	#wrapperTemplate{
+		overflow: hidden;
+	}
+
+	#contentWrapper{
+		padding: 15px;
+	}
+
+	#nestedContent{
+		min-height: 60%;
+		max-height: 70%;
+	}
+
+	.rightCol{
+		width:65%;
+		float:left;
+	}
+
+	.mode, .secondaryMode {
+		width: 80%;
+		padding: 2.5%;
+		margin: 2.5%;
+	}
+
+	.row {
+		float: left;
+    	width: 100%;
+
+	}
+
+	#aboutContent{
+		display: block;
+		position: fixed;
+		width: 75%;
+		/*margin-top: -400px;*/
+		padding: 10px;
+		border: solid;
+		border-radius: 10px;
+		border-color: deeppink;
+		background-color: crimson;
+		color: white;
+		text-shadow: 2px 2px black;
+		text-align: center;
+	}
+
+	#displaySecMode{ 
+	  	padding-top: 12px;
+	}
+
+	#secondaryModeBtns, #cardNavigation{
+		/*padding-top: 15px;*/
+	}
+
+/*CardNavigation*/
+	/*Slide Menu Away*/
+	.hideHiragana{
+		transform: translate(-135%,-160px);
+		position: absolute;
+	}
+
+	.hideKatakana{
+	    transform: translate(-135%,20px);
+	    position: absolute;
+	}
+
+	.hidePhrases{
+		transform: translate(-135%, 200px);
+		position: absolute;
+	}
+
+	.hideNumbers{
+	    transform: translate(-135%,380px);
+	    position: absolute;
+	}
+		
+	#cardNavigation{
+		float: left;
+		width: 100%;
+
+	}
+	.backBtnDiv{
+		width: 20%;
+		float: left;
+	}
+
+	.backBtn{
+		padding: 10px;
+		display: block;
+	}
+
+	#bodyContent{
+		padding: 10px;
+	  	font-weight: bold;
+	  	font-size: xx-large;
+	}
+				
+	#imageContent{  
+		padding-top: 10px;
+		clear: left;
+		height: 200px;
+	}	
+
+	#imageDisplayed{
+		width:auto;
+		height: auto;
+	}
+
+	#nextButton{
+		width: 92px;
+	}
+				
+	#secondTemplateWrapper, #displayCardWrapper, #feedbackFormWrapper{
+		/*#secondTemplateWrapper{*/
+		opacity: 0;
+	}
+
+/*Feedback*/
+	#feedbackForm {
+		text-align: center;
+	}
+
+	#submitFeedbackBtn{
+		width: 80%;
+		margin-left: 10%;
+	}
+
+
+
+@media only screen and (max-width: 674px) {
+/*Multi-Use*/
+	.mode, .secondaryMode {
+		height: 13%;
+		width: 85%;
+		margin: 3%;
+	}
+
+	.backBtn {
+		width: 80px;
+		height: 50px;
+	}
+
+/*Home*/
+	#aboutBtn, #feedbackBtn {
+		float: left;
+		margin-top: 2.5%;
+		height: 5%;
+		width: 34%;
+		padding: 0px;
+	}
+
+	#aboutContent{
+		width: 80%;
+		margin-left: 2%;
+	}
+
+	.desktopText{
+		display: none !important;
+	}
+
+	.rightCol{
+		float: none;
+	}
+	
+	#footerBtnWrapper{
+		margin-left: 25%;
+		margin-top: 5%;
+	}
+
+/*CardNavigation*/	
+	#imageDisplayed{
+		width:auto;
+	}
+
+	#transButton, #nextButton {
+		width: 50%;
+  		margin-bottom: 5%;
+	}
+
+
+/*Feedback*/
+	#submitFeedbackBtn{
+		width: 50%;
+		margin-left: 25%;
+	}
+
+
+}
+
+@media only screen and (min-width: 675px) {
+
+/*Multi-Use*/
+	#modeBtns button, #secondaryModeBtns button {
+		/*width: 90% !important;*/
+		/*padding: 10%;*/
+	}
+
+	.mode, .secondaryMode {
+		width: auto;
+	}
+
+	.navWrapper{
+		margin-left: auto;
+		margin-right: auto;
+		width: 80%;
+	}
+
+	.backBtnDiv{
+		width: 100%;
+	}
+
+	#modeBtns, #secondaryModeBtns, #feedbackBtnDiv {
+		width: 100%;
+		margin-top: 1.5%;
+	}
+
+	#feedbackBtnDiv{
+		float: left;
+	}
+
+	#displayMode{
+		margin-top: 4%;
+		margin-bottom: 4%;
+		clear: left;
+		float: left;
+	}
+	
+	#footerBtnWrapper{
+		/*margin-left: 25%;*/
+		margin-top: 5%;
+	}
+
+/*Home*/
+	#mainBanner{
+		display: block;
+	}
+	
+	#nestedContent{
+		margin-top: 1.5%;
+	}
+
+	#modeBtns{
+		float: left;
+	}
+	
+	.desktopText{
+		float: left;
+		margin: 1.5%;
+	}
+
+	#aboutBtn {
+		display: none;
+	}
+
+/*AboutContent*/
+	#aboutContent {
+		/*margin-top: 365px;*/
+		margin-left: 1.5%;
+		display: block !important;
+		/*opacity: 1 !important;*/
+		width: 60%;
+	}
+
+/*CardNavigation*/
+	#transButton, #nextButton{
+		width: 25% !important;
+		padding: 2% !important;
+	}
+
+/*Feedback*/
+	#feedbackBtn{
+		margin-top: 0px;
+	}
+
+	#submitFeedbackBtn {
+		width: 20%;
+		margin-left: 40%;
+	}
+}
+
+
+@media only screen and (min-width: 1000px) {
+/*Multi-Use*/
+	h1{
+		font-size: 3em;
+	}
+
+	.navWrapper{
+		/*width: 15%;*/
+	}
+
+	.rightCol{
+		margin-left: 3%;
+	}
+
+	#displayCardWrapper{
+		width: 70%;
+	    margin-left: auto;
+		margin-right: auto;
+	}
+
+/*Home*/
+	.desktopText{
+		margin-top: 0%;
+	}
+
+	#bodyContent{
+		font-size: 3.5em;
+	}
+
+	.Mode{
+		background-color: #FFF4F4;
+		float: left;
+		margin: 5%;
+		text-align: center;
+		
+		height: 225px;
+		max-height: 100px;
+
+		width: 32%;
+		/*max-width: 15%*/
+	}
+
+	#hiragana {
+	    border-right: 25px solid red;
+	}
+
+	#katakana {
+	    border-right: 25px solid blue;
+	}
+
+	#phrases {
+	    border-right: 25px solid yellow;
+	}
+
+	#numbers {
+	    border-right: 25px solid black;
+	}
+
+/*CardNavigation*/
+
+	.repositionLabels{
+		width: 30%;
+		float: right;
+		margin-top: 25px;
+	}
+
+	#hiraganaColor{
+	    width: 30px;
+	    height: 164px;
+	    background-color: red;
+	    float: right;
+	    margin-right: -185px;
+	    margin-top: -35px;
+	}
+
+	.slideHiragana {
+	    transform: translate(-95%,-160px);
+	}
+
+	.slideKatakana {
+	    transform: translate(-95%, 20px);
+	}
+
+	.slidePhrases {
+	    transform: translate(-95%, 200px);
+	}
+
+	.slideNumbers {
+	    transform: translate(-95%, 380px);
+	}
+
+
+
+	#modeDivs {
+		margin-top: -30px
+	}
+
+	#transButton, #nextButton{
+		width: 14% !important;
+		padding: 1.5% !important;
+		margin: 1%;
+	}
+
+	.changeModes {
+		float: right;
+	}
+
+/*Feedback*/
+	#submitFeedbackBtn {
+		width: 20%;
+		margin-left: 40%;
+	}
+
+}

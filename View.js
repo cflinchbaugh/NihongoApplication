@@ -5,6 +5,8 @@ View = Backbone.View.extend({
 	hiraganaLoaded: false,
 	katakanaLoaded: false,
 	phrasesLoaded: false,
+	secondModeActive: false,
+	mode: "Hiragana",
 
 	initialize: function(){
 		this.initialRender();
@@ -50,7 +52,7 @@ View = Backbone.View.extend({
 			compiledMode = _.template(modeHTML),
 		
 		// build the html from the template, pass in necessary content
-			compiledModeHTML = compiledMode({mode: this.mode, secondaryMode: 'Image'});
+			compiledModeHTML = compiledMode({mode: mode, secondaryMode: 'Image'});
 		
 		// Jam it all into the element
 			this.$el.html(compiledModeHTML);
@@ -98,23 +100,7 @@ View = Backbone.View.extend({
 				}
 
 				break;
-
-			//case "Hiragana":
-
 		}
-
-		// switch(this.mode){
-		// 	case "Numbers":
-		// 		this.currentCollection = numbers;
-		// 		console.log("numbersLoaded: " + this.numbersLoaded);
-
-		// 		if (this.numbersLoaded === false){
-		// 			this.currentCollection.getNumbers();
-		// 			this.numbersLoaded = true;
-		// 		}
-		// 		break;
-
-
 	},
 	
 	renderSecMode : function(i){
@@ -125,15 +111,15 @@ View = Backbone.View.extend({
 			compiledSecMode = _.template(secModeHTML),
 		
 		// build the html from the template, pass in necessary content
-			compiledSecModeHTML = compiledSecMode({mode: this.mode, secondaryMode: 'Image'});
+			compiledSecModeHTML = compiledSecMode({mode: mode, secondaryMode: 'Image'});
 			
 		// Jam it all into the element
+		console.log(this.$el.html);
 			this.$el.html(compiledSecModeHTML);
 
 		//Update CSS
-		this.styleLoading(this.mode);
+		this.styleLoading(mode);
 	},
-
 
 	renderCard : function(i){
 		//Template 3.0
@@ -153,14 +139,14 @@ View = Backbone.View.extend({
 			RenderImage = this.currentCollection.at(this.i).get("image");
 
 		// build the html from the template, pass in necessary content
-			compiledcardContentHTML = compiledcardContent({mode: this.mode, 
+			compiledcardContentHTML = compiledcardContent({mode: mode, 
 				secondaryMode: this.secondaryMode, 
 				bodyContent: RenderRomanji, 
 				imageContent: RenderImage
 			}),
 
 			compiledDispCardHTML = compiledDispCard({otherTemplates: compiledcardContentHTML, 
-				mode: this.mode, 
+				mode: mode, 
 				secondaryMode: this.secondaryMode, 
 				bodyContent: RenderRomanji, 
 				imageContent: RenderImage,
@@ -169,7 +155,22 @@ View = Backbone.View.extend({
 			}),
 		
 		// Jam it all into the element
-			this.$el.html(compiledDispCardHTML);
+			console.log(this.$el.html);
+			//this.$el.html(compiledDispCardHTML);
+			$('#cardContentHere').html(compiledDispCardHTML);
+
+		// Make the content visible
+		$('#Hiragana').addClass('hideHiragana');
+		$('#Katakana').addClass('hideKatakana');
+		$('#Numbers').addClass('hideNumbers');
+		$('#Phrases').addClass('hidePhrases');
+
+		$('#cardContentHere').toggleClass('invisible visible');
+		
+		setTimeout(function(){
+			$('#displayCardTemplate').toggleClass('invisible visible');
+		}, 1500); 
+
 	},
 
 	renderCardContent : function(i){
@@ -179,11 +180,15 @@ View = Backbone.View.extend({
 			compiledcardContent = _.template(cardContentHTML);
 
 		//Get current content to pass into the template
+			console.log(this.currentCollection);
+			console.log(this.i);
+			console.log(this.currentCollection.at(this.i));
+
 			RenderRomanji = this.currentCollection.at(this.i).get("romanji"),
 			RenderImage = this.currentCollection.at(this.i).get("image");
 
 		// build the html from the template, pass in necessary content
-			compiledcardContentHTML = compiledcardContent({mode: this.mode, 
+			compiledcardContentHTML = compiledcardContent({mode: mode, 
 				secondaryMode: this.secondaryMode, 
 				bodyContent: RenderRomanji, 
 				imageContent: RenderImage
@@ -207,7 +212,24 @@ View = Backbone.View.extend({
 	},
 
 	//Bind events
-	events: {"click .mode": "updateMode",
+	events: {"mouseover .mode": "updateMode",
+
+			"click #hirImage" : "hirImage",
+			"click #hirRomanji" : "hirRomanji",
+
+			"click #katImage" : "katImage",
+			"click #katRomanji" : "katRomanji",
+
+			"click #numImage" : "numImage",
+			"click #numRomanji" : "numRomanji",
+
+			"click #phrasesImage" : "phrasesImage",
+			"click #phrasesRomanji" : "phrasesRomanji",
+
+			"mouseover #modeDivs" : "slideSecModesOut",
+			"mouseout #modeDivs" : "slideSecModesIn",
+
+
 			"click .secondaryMode": "updateSecondaryMode",
 			"click #nextButton": "nextCard",
 			"click #transButton": "translate",
@@ -215,10 +237,146 @@ View = Backbone.View.extend({
 			"click #secModeBackBtn": "backToMode",
 			"click #cardBackBtn": "backToSecMode",
 			"click #feedbackBtn": "renderFeedback",
-			"click #homeBtn": "backToMode"
+			"click #homeBtn": "backToMode",
+			"click #hajimeBtn": "shrinkWelcome"
+
 	},
 
-	//Re-render Mode via the Back Button
+/* Change mode/secondaryMode after making initial selection
+Redundant use of secondary mode */
+	hirImage : function(e){
+		this.secondaryMode = 'Image';
+	},
+
+	hirRomanji : function(e){
+		this.secondaryMode = 'Romanji';
+	},
+
+	katImage : function(e){
+		this.secondaryMode = 'Image';
+	},
+
+	katRomanji : function(e){
+		this.secondaryMode = 'Romanji';
+	},
+
+	phrasesImage : function(e){
+		this.secondaryMode = 'Image';
+	},
+
+	phrasesRomanji : function(e){
+		this.secondaryMode = 'Romanji';
+	},
+
+	numImage : function(e){
+		this.secondaryMode = 'Image';
+	},
+
+	numRomanji : function(e){
+		mode = 'Numbers';
+	},
+
+/* -----------------------------------------*/
+slideSecModesOut : function(e){
+	if (this.secondModeActive){
+		$("#Hiragana").addClass('slideHiragana');
+		$("#Katakana").addClass('slideKatakana');
+		$("#Numbers").addClass('slideNumbers');
+		$("#Phrases").addClass('slidePhrases');
+	}
+},
+
+slideSecModesIn : function(e){
+	$("#Hiragana").removeClass('slideHiragana');
+	$("#Katakana").removeClass('slideKatakana');
+	$("#Numbers").removeClass('slideNumbers');
+	$("#Phrases").removeClass('slidePhrases');
+},
+
+
+	slideOut : function(e){
+		console.log(e.currentTarget.id);
+	},
+
+	slideHiraganaOut : function(e){
+		if (this.secondModeActive){
+			$("#Hiragana").addClass('slideHiragana');
+		}
+	},
+
+	slideHiraganaIn : function(e){
+	// 	if (this.secondModeActive){
+	// 		$("#Hiragana").removeClass('slideHiragana');
+	// 	}
+	},
+
+	slideKatakanaOut : function(e){
+		if (this.secondModeActive){
+			$("#Katakana").addClass('slideKatakana');
+		}
+	},
+
+	slideKatakanaIn : function(e){
+		// if (this.secondModeActive){
+		// 	$("#Katakana").removeClass('slideKatakana');
+		// }
+	},
+
+	slideNumbersOut : function(e){
+		if (this.secondModeActive){
+			$("#Numbers").addClass('slideNumbers');
+		}
+	},
+
+	slideNumbersIn : function(e){
+		// if (this.secondModeActive){
+		// 	$("#Numbers").removeClass('slideNumbers');
+		// }
+	},
+
+	slidePhrasesOut : function(e){
+		if (this.secondModeActive){
+			$("#Phrases").addClass('slidePhrases');
+		}
+	},
+
+	slidePhrasesIn : function(e){
+		// if (this.secondModeActive){
+		// 	$("#Phrases").removeClass('slidePhrases');
+		// }
+	},
+
+	// Remove introductory message
+	// Then make the main menu appear
+	shrinkWelcome : function(e){
+		//$("#welcome").hide();
+		$("#welcome").removeClass('fadeInUp');
+		
+		setTimeout(function(){
+			$("#welcome").addClass('disappear');
+		}, 0);
+
+		// Buttons
+		$("#modeBtns button").removeClass('disappear');
+		$("#Hiragana").addClass('appear');
+		$("#Katakana").addClass('appear1');
+		$("#Phrases").addClass('appear2');
+		$("#Numbers").addClass('appear3');
+
+		// Divs (replacing buttons)
+		$("#modeDivs div").removeClass('disappear');
+		$("#HiraganaDiv").addClass('appear');
+		$("#KatakanaDiv").addClass('appear1');
+		$("#NumbersDiv").addClass('appear2');
+		$("#PhrasesDiv").addClass('appear3');
+
+		$("#feedbackBtn").removeClass('disappear');
+		$("#feedbackBtn").addClass('appear5');		
+	},
+
+
+	//Re-render main Mode Menu via the Home Button
+	// Currently used on the Feedback form
 	backToMode : function(e){
 		this.renderMode();
 
@@ -230,20 +388,22 @@ View = Backbone.View.extend({
 		}, 100); 
 	}, 
 
-	//Re-render Second Mode via the Back Button
-	backToSecMode: function(e){
-		this.renderSecMode();
+	//Currently deprecated
+	// //Re-render Second Mode via the Back Button
+	// backToSecMode: function(e){
+	// 	this.renderSecMode();
 				
-		setTimeout(function(){
-			$("#secondTemplateWrapper").addClass('visible');
-		}, 100); 
-	},
+	// 	setTimeout(function(){
+	// 		$("#secondTemplateWrapper").addClass('visible');
+	// 	}, 100); 
+	// },
 
-	//Update mode, re-render
+	//Update mode
  	updateMode : function(e){
-		this.mode = e.target.id;
-		
-		switch(this.mode){
+ 		
+		mode = e.target.id;
+ 				
+		switch(mode){
 			case "Numbers":
 				this.currentCollection = numbers;
 				console.log("numbersLoaded: " + this.numbersLoaded);
@@ -263,6 +423,7 @@ View = Backbone.View.extend({
 				break;
 			case "Katakana":
 				this.currentCollection = katakana;
+				console.log("katakanaLoaded: " + this.katakanaLoaded);
 				if (this.katakanaLoaded === false){
 					this.currentCollection.getKatakana();
 					this.katakanaLoaded = true;
@@ -286,18 +447,25 @@ View = Backbone.View.extend({
 		//Reset the i value because each collection may have a different length,
 		this.i = -1;
 		
-		//Render content
-		this.renderSecMode();
+		// //Render content
+		// this.renderSecMode();
 		
-		//Animation between modes
-		setTimeout(function(){
-			$("#secondTemplateWrapper").addClass('visible');
-		}, 100); 
+		// //Animation between modes
+		// setTimeout(function(){
+		// 	$("#secondTemplateWrapper").addClass('visible');
+		// }, 100); 
+
 	},
 
 	//Secondary Mode
  	updateSecondaryMode : function(e){
+		console.log(this.currentCollection);
+		$('#cardContentHere').removeClass('invisibe');
+		$('#cardContentHere').addClass('visibe');
+
+
 		this.secondaryMode = e.target.id;
+		$('#hiragana').addClass('hideHiragana');
 		
 		//Shuffle each time a new mode is selected
 		this.currentCollection.shuffleCollection();
@@ -323,10 +491,24 @@ View = Backbone.View.extend({
 			$('#bodyContent').addClass('invisible');
 			$('#imageContent').removeClass('invisible');
 		}
+
+		this.secondModeActive = true;
+		console.log(this.secondModeActive);
+
+		$('.secondaryMode').toggleClass('loading visible invisible');
+		$('.label').addClass('repositionLabels');
+		$('.firstMode').removeClass('firstMode');
+
+		setTimeout(function(){
+			$('.changeModes').toggleClass('invisible visible');
+		}, 1500); 
+
 	},
 
 	//Next card	
 	nextCard : function(e){
+		console.log(mode);
+		console.log(this.secondaryMode);
 		//Increment count, reshuffle if end of the deck has been reached
 		this.i++;
 
@@ -375,26 +557,27 @@ View = Backbone.View.extend({
 		//No need to re-render		
 	},
 
-	renderAbout : function(e){
-//TODO: See Joe/Ian
-//apparently THIS changed when I reloaded the template so now I have to make a DOM call
-		//$('#aboutContent').toggleClass('hide');
-		//this.$classesStringified = $('#aboutContent').attr('class');
-		
-		if ($('#aboutContent').hasClass('hide')){
-			$('#aboutContent').toggleClass('hide');
-			setTimeout(function(){
-				$('#aboutContent').toggleClass('invisible visible');
-			}, 100); 
-		}
 
-		else{
-			$('#aboutContent').toggleClass('invisible visible');
-			setTimeout(function(){
-				$('#aboutContent').toggleClass('hide');
-			}, 100); 
-		}
-	},
+// 	renderAbout : function(e){
+// //TODO: See Joe/Ian
+// //apparently THIS changed when I reloaded the template so now I have to make a DOM call
+// 		//$('#aboutContent').toggleClass('hide');
+// 		//this.$classesStringified = $('#aboutContent').attr('class');
+		
+// 		if ($('#aboutContent').hasClass('hide')){
+// 			$('#aboutContent').toggleClass('hide');
+// 			setTimeout(function(){
+// 				$('#aboutContent').toggleClass('invisible visible');
+// 			}, 100); 
+// 		}
+
+// 		else{
+// 			$('#aboutContent').toggleClass('invisible visible');
+// 			setTimeout(function(){
+// 				$('#aboutContent').toggleClass('hide');
+// 			}, 100); 
+// 		}
+// 	},
 
 	renderFeedback : function(e){
 		this.renderFeedbackForm();
@@ -428,4 +611,9 @@ View = Backbone.View.extend({
 		}
 	}
 
+
+/*Testing----------------------------------------------------*/
+
+
+/*----------------------------------------------------------*/
 
